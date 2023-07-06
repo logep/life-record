@@ -33,6 +33,7 @@ jobs:
         run: |
           git config --local user.email "logep@github.com"
           git config --local user.name "logep"
+          git pull --rebase
           git add .
           git commit -m "Create stackflow"
           git push
