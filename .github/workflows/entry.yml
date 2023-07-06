@@ -16,6 +16,8 @@ jobs:
 
       # 添加其他步骤和操作
       # ...
+      - name: Step B
+        run: echo "任务流都已完成"
 
   send_notification:
     needs: process_results
@@ -31,6 +33,4 @@ jobs:
                -d '{"msgtype": "text", "text": {"content": "GitHub Actions 完成"}}' \
                ${DINGTALK_WEBHOOK}
         
-      # - name: Step B
-      # run: echo "任务流都已完成"
-      # 添加其他步骤和操作
+
