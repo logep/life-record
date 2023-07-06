@@ -24,7 +24,7 @@ def generate_markdown_content(hot_topics):
 def add_hot_topics_to_repository(hot_topics):
     # 获取当前时间并生成文件名
     current_time = datetime.now()
-    date_str = current_time.strftime("%Y%m%d")
+    date_str = current_time.strftime("%Y%m")
     folder_name = os.path.join("weibo", date_str)
     os.makedirs(folder_name, exist_ok=True)
 
