@@ -1,4 +1,5 @@
 import requests
+import os
 from datetime import datetime
 
 def get_hot_topics():
