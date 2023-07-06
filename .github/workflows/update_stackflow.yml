@@ -1,0 +1,35 @@
+name: Update Hot Topics
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+   
+      - name: Install dependencies
+        run: pip install requests
+   
+      - name: Run script to add hot topics
+        run: python stackoverflow_python.py
+        
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "logep@github.com"
+          git config --local user.name "logep"
+          git add .
+          git commit -m "Create stackflow"
+          git push
