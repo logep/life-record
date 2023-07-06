@@ -1,24 +1,27 @@
 name: Update Hot Topics
 
 on:
+  push:
+    branches:
+      - main
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "30 7 * * *"
 
 jobs:
   update:
     runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
-
-    - name: Install dependencies
-      run: pip install requests
-
-    - name: Run script to add hot topics
-      run: python auto_python.py
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+   
+      - name: Install dependencies
+        run: pip install requests
+   
+      - name: Run script to add hot topics
+        run: python auto_python.py
