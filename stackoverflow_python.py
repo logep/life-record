@@ -4,6 +4,22 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import mistune
 
+# def get_hot_topics():
+#     # 这里只是一个示例，你需要根据你的需求进行修改
+#     response = requests.get("https://stackoverflow.com/questions?sort=MostFrequent&edited=true")
+#     if response.status_code == 200:
+#         html_content = response.text
+#         soup = BeautifulSoup(html_content, "html.parser")
+#         post_summaries = soup.find_all(class_="s-post-summary--content")
+#         if post_summaries:
+#             markdown_content = ""
+#             for summary in post_summaries:
+#                 markdown_content += mistune.markdown(summary.get_text()) + "\n\n"
+#             return markdown_content
+#         else:
+#             return None
+#     else:
+#         return None
 def get_hot_topics():
     # 这里只是一个示例，你需要根据你的需求进行修改
     response = requests.get("https://stackoverflow.com/questions?sort=MostFrequent&edited=true")
@@ -14,13 +30,24 @@ def get_hot_topics():
         if post_summaries:
             markdown_content = ""
             for summary in post_summaries:
-                markdown_content += mistune.markdown(summary.get_text()) + "\n\n"
+                # 提取标题和链接
+                title_elem = summary.find(class_="s-post-summary--content-title")
+                title = title_elem.get_text().strip()
+                link = title_elem.find("a")["href"]
+
+                # 提取摘要内容
+                excerpt_elem = summary.find(class_="s-post-summary--content-excerpt")
+                excerpt = excerpt_elem.get_text().strip()
+
+                # 转换为 Markdown 格式
+                markdown_content += f"- [{title}]({link})\n\n{excerpt}\n\n"
+
             return markdown_content
         else:
             return None
     else:
         return None
-
+        
 def generate_markdown_content(hot_topics):
     markdown_content = "# stackoverflow热点话题\n\n"
     for topic in hot_topics:
