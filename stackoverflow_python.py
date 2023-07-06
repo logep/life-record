@@ -1,13 +1,23 @@
 import requests
 import os
 from datetime import datetime
+from bs4 import BeautifulSoup
+import mistune
 
 def get_hot_topics():
     # 这里只是一个示例，你需要根据你的需求进行修改
-    response = requests.get("https://weibo.com/ajax/side/hotSearch")
+    response = requests.get("https://stackoverflow.com/questions?sort=MostFrequent&edited=true")
     if response.status_code == 200:
-        data = response.json()
-        return data.get("data", {}).get("realtime", [])
+        html_content = response.text
+        soup = BeautifulSoup(html_content, "html.parser")
+        post_summaries = soup.find_all(class_="s-post-summary--content")
+        if post_summaries:
+            markdown_content = ""
+            for summary in post_summaries:
+                markdown_content += mistune.markdown(summary.get_text()) + "\n\n"
+            return markdown_content
+        else:
+            return None
     else:
         return None
 
@@ -31,13 +41,13 @@ def add_hot_topics_to_repository(hot_topics):
     file_name = f"hot_topics_{current_time.strftime('%H%M%S')}.md"
     file_path = os.path.join(folder_name, file_name)
     # 生成 Markdown 内容
-    markdown_content = generate_markdown_content(hot_topics)
+    # markdown_content = generate_markdown_content(hot_topics)
     # 创建目录（如果不存在）
     # os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
     # 将最新热点内容写入文件
     with open(file_path, "w", encoding="utf-8") as file:
-       file.write(markdown_content)
+       file.write(hot_topics)
 
 # 获取最新热点内容
 hot_topics = get_hot_topics()
