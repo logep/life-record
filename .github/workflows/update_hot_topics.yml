@@ -25,3 +25,11 @@ jobs:
    
       - name: Run script to add hot topics
         run: python auto_python.py
+        
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "logep@github.com"
+          git config --local user.name "logep"
+          git add .
+          git commit -m "Create new_file"
+          git push
