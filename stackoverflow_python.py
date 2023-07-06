@@ -3,7 +3,6 @@ import os
 from datetime import datetime
 
 def get_hot_topics():
-    # 使用相关API获取最新热点内容
     # 这里只是一个示例，你需要根据你的需求进行修改
     response = requests.get("https://weibo.com/ajax/side/hotSearch")
     if response.status_code == 200:
