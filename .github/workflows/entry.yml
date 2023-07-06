@@ -1,0 +1,19 @@
+name: Main Workflow
+
+on:
+  workflow_run:
+    workflows: ["timer_tips", ""]
+    types:
+      - completed
+
+jobs:
+  process_results:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Step B
+        run: echo "任务流都已完成"
+      # 添加其他步骤和操作
