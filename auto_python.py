@@ -9,7 +9,7 @@ def get_hot_topics():
     if response.status_code == 200:
         return response.json()
     else:
-        return None
+        return '测试内容'
 
 def add_hot_topics_to_repository(hot_topics):
     # 获取当前时间并生成文件名
