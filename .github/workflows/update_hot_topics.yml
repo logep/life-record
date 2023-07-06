@@ -21,4 +21,4 @@ jobs:
       run: pip install requests
 
     - name: Run script to add hot topics
-      run: python your_script.py
+      run: python auto_python.py
