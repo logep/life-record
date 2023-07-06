@@ -2,7 +2,7 @@ name: Main Workflow
 
 on:
   workflow_run:
-    workflows: ["timer_tips", ""]
+    workflows: ["timer_tips", "Update stackoverflow"]
     types:
       - completed
 
