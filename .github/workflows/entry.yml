@@ -30,7 +30,7 @@ jobs:
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{"msgtype": "text", "text": {"content": "GitHub Actions 完成"}}' \
+               -d '{"msgtype": "text", "text": {"content": "github Actions 完成"}}' \
                ${DINGTALK_WEBHOOK}
         
 
