@@ -32,5 +32,11 @@ jobs:
                -X POST \
                -d '{"msgtype": "text", "text": {"content": "github Actions 完成"}}' \
                ${DINGTALK_WEBHOOK}
+#       - name: Send notification to WeChat
+#         env:
+#          SERVER_CHAN_SEND_KEY: ${{ secrets.SERVER_CHAN_SEND_KEY }}
+#         run: |
+#          curl -X POST -d "text=GitHub Actions Completed" https://sctapi.ftqq.com/$SERVER_CHAN_SEND_KEY.send
+
         
 
