@@ -16,19 +16,13 @@ def add_hot_topics_to_repository(hot_topics):
     current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
     file_name = f"hot_topics_{current_time}.txt"
 
-    # 定义文件路径（相对于仓库根目录）
-    file_path = os.path.join("weibo", file_name)  # 替换为你想要的目录路径
-
-    # 创建目录（如果不存在）
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
     # 将最新热点内容写入文件
-    with open(file_path, "a") as file:
+    with open(file_name, "a") as file:
         for topic in hot_topics:
             file.write(topic + "\n")
 
 # 获取最新热点内容
-hot_topics = get_hot_topics()
+hot_topics = '测试额'
 if hot_topics:
     # 将最新热点内容写入仓库
     add_hot_topics_to_repository(hot_topics)
