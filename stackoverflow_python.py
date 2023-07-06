@@ -33,7 +33,7 @@ def get_hot_topics():
                 # 提取标题和链接
                 title_elem = summary.find(class_="s-post-summary--content-title")
                 title = title_elem.get_text().strip()
-                link = title_elem.find("a")["href"]
+                link = "https://stackoverflow.com" + title_elem.find("a")["href"]
 
                 # 提取摘要内容
                 excerpt_elem = summary.find(class_="s-post-summary--content-excerpt")
