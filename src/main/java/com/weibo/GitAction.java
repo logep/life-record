@@ -36,7 +36,8 @@ public class GitAction {
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet("https://weibo.com/ajax/side/hotSearch");
 
-        try (HttpResponse  response = client.execute(request)) {
+        try  {
+            HttpResponse  response = client.execute(request)
             if (response.getStatusLine().getStatusCode() == 200) {
                 String responseBody = EntityUtils.toString(response.getEntity());
                  Gson gson = new Gson();
