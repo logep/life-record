@@ -1,4 +1,4 @@
-// package com.weibo.auto_weibo;
+package com.weibo;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
