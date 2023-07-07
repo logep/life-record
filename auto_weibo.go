@@ -55,7 +55,7 @@ func generateMarkdownContent(hotTopics []HotTopic) string {
 func addHotTopicsToRepository(hotTopics []HotTopic) error {
 	currentTime := time.Now()
 	dateStr := currentTime.Format("200601")
-	folderName := filepath.Join("weibo", dateStr)
+	folderName := filepath.Join(".", "weibo", dateStr)
 	err := os.MkdirAll(folderName, os.ModePerm)
 	if err != nil {
 		return err
