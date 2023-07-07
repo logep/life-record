@@ -31,7 +31,7 @@ jobs:
         
       - name: Commit and push changes
         run: |
-          git config --local user.email "logep@github.com"
+          git config --local user.email "pingbeer69@gmail.com"
           git config --local user.name "logep"
           git add .
           git commit -m "Create new_file"
