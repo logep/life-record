@@ -43,7 +43,7 @@ func getHotTopics() ([]HotTopic, error) {
 }
 
 func generateMarkdownContent(hotTopics []HotTopic) string {
-	markdownContent := "# 微博热点话题\n\n"
+	markdownContent := "# 微博热点话题-go语言生成\n\n"
 	for _, topic := range hotTopics {
 		word := topic.Word
 		link := fmt.Sprintf("https://s.weibo.com/weibo?q=%s", word)
