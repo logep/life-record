@@ -39,6 +39,7 @@ public class GitAction {
         try (CloseableHttpResponse response = client.execute(request)) {
             if (response.getStatusLine().getStatusCode() == 200) {
                 String responseBody = EntityUtils.toString(response.getEntity());
+                 Gson gson = new Gson();
                 HotTopicsResponse hotTopicsResponse = gson.fromJson(responseBody, HotTopicsResponse.class);
                 List<HotTopic> hotTopics = hotTopicsResponse.getRealtime();
 
