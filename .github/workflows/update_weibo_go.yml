@@ -21,7 +21,7 @@ jobs:
           go-version: 1.x
           
       - name: Initialize Go module
-        run: go mod init
+        run: go mod init go/m
         
       - name: Build
         run: go build -o auto_weibo
