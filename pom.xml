@@ -19,7 +19,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>com.weibo.auto_weibo.Main</mainClass> <!-- 替换为你的主类名 -->
+                        <mainClass>com.weibo.Main</mainClass> <!-- 替换为你的主类名 -->
                     </manifest>
                 </archive>
             </configuration>
