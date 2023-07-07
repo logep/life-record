@@ -31,3 +31,12 @@ jobs:
 
       - name: Run
         run: ./auto_weibo
+        
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git pull --rebase
+          git add .
+          git commit -m "Create go weibo"
+          git push
