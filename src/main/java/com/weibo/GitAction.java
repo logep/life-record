@@ -9,7 +9,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.HttpResponse;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
@@ -36,7 +36,7 @@ public class GitAction {
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet("https://weibo.com/ajax/side/hotSearch");
 
-        try (CloseableHttpResponse response = client.execute(request)) {
+        try (HttpResponse  response = client.execute(request)) {
             if (response.getStatusLine().getStatusCode() == 200) {
                 String responseBody = EntityUtils.toString(response.getEntity());
                  Gson gson = new Gson();
