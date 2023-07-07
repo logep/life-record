@@ -27,8 +27,8 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-   #   - name: Run Java Application
-   #     run: java -jar target/auto_weibo.jar
+      - name: Run Java Application
+        run: java -jar target/auto_weibo-1.0.0.jar
         
       - name: Commit and push changes
         run: |
