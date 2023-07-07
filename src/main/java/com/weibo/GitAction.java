@@ -7,9 +7,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.google.gson.Gson;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 
 public class GitAction {
 
@@ -30,22 +33,20 @@ public class GitAction {
     }
 
     public static void main(String[] args) {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://weibo.com/ajax/side/hotSearch")
-                .build();
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet("https://weibo.com/ajax/side/hotSearch");
 
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                Gson gson = new Gson();
-                HotTopicsResponse hotTopicsResponse = gson.fromJson(response.body().string(), HotTopicsResponse.class);
+        try (CloseableHttpResponse response = client.execute(request)) {
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String responseBody = EntityUtils.toString(response.getEntity());
+                HotTopicsResponse hotTopicsResponse = gson.fromJson(responseBody, HotTopicsResponse.class);
                 List<HotTopic> hotTopics = hotTopicsResponse.getRealtime();
 
                 if (hotTopics != null && !hotTopics.isEmpty()) {
                     addHotTopicsToRepository(hotTopics);
                 }
             } else {
-                System.out.println("Failed to get hot topics: " + response.code());
+                System.out.println("Failed to get hot topics: " + response.getStatusLine().getStatusCode());
             }
         } catch (IOException e) {
             e.printStackTrace();
