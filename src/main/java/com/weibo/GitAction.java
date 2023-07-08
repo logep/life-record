@@ -23,7 +23,13 @@ public class GitAction {
             return word;
         }
     }
+    public static class HotTopicsResponseWrapper {
+        private HotTopicsResponse data;
 
+        public HotTopicsResponse getData() {
+            return data;
+        }
+    }
     public static class HotTopicsResponse {
         private List<HotTopic> realtime;
 
@@ -41,7 +47,9 @@ public class GitAction {
             if (response.getStatusLine().getStatusCode() == 200) {
                 String responseBody = EntityUtils.toString(response.getEntity());
                  Gson gson = new Gson();
-                HotTopicsResponse hotTopicsResponse = gson.fromJson(responseBody, HotTopicsResponse.class);
+//                HotTopicsResponse hotTopicsResponse = gson.fromJson(responseBody, HotTopicsResponse.class);
+                HotTopicsResponseWrapper wrapper = gson.fromJson(responseBody, HotTopicsResponseWrapper.class);
+                HotTopicsResponse hotTopicsResponse = wrapper.getData();
                 List<HotTopic> hotTopics = hotTopicsResponse.getRealtime();
 
                 if (hotTopics != null && !hotTopics.isEmpty()) {
