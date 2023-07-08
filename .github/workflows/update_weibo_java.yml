@@ -28,7 +28,7 @@ jobs:
         run: mvn clean package
 
       - name: Run Java Application
-        run: java -jar target/auweibo-1.0.0.jar
+        run: java -jar target/GitAction-1.0.0-jar-with-dependencies.jar
         
       - name: Commit and push changes
         run: |
