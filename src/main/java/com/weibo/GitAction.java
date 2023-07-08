@@ -13,7 +13,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-
 public class GitAction {
 
     public static class HotTopic {
