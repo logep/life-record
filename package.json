@@ -1,0 +1,10 @@
+{
+  "name": "actionBynodejs",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node auto_nodejs.js"
+  },
+  "dependencies": {
+    "luxon": "^2.0.0" // 根据你的需求添加其他依赖
+  }
+}
