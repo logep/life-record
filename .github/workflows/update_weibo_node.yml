@@ -39,21 +39,46 @@ jobs:
 #           # Export the array as an environment variable
 #           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
 
-      - name: Generate random strings from staged files
+#       - name: Generate random strings from staged files
+#         id: random_strings
+#         run: |
+#           # Get the list of staged files
+#           staged_files=$(git diff --cached --name-only)
+#           # Initialize an array to store random strings
+#           random_strings=()
+#           # Loop through each staged file
+#           for file in $staged_files; do
+#             # Read up to 20 random characters from the file and store it in the array
+#             random_strings+=($(head -c 20 "$file" | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1))
+#           done
+#           # Export the array as an environment variable
+#           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
+ 
+      - name: Get last commit hash
+        id: last_commit
+        run: echo "::set-output name=hash::$(git rev-parse HEAD)"
+
+      - name: Get last commit files
+        id: last_commit_files
+        run: |
+          hash=${{ steps.last_commit.outputs.hash }}
+          last_commit_files=$(git diff-tree --no-commit-id --name-only -r $hash)
+          echo "::set-output name=files::${last_commit_files[*]}"
+
+      - name: Generate random strings from last commit files
         id: random_strings
         run: |
-          # Get the list of staged files
-          staged_files=$(git diff --cached --name-only)
+          last_commit_files="${{ steps.last_commit_files.outputs.files }}"
           # Initialize an array to store random strings
           random_strings=()
-          # Loop through each staged file
-          for file in $staged_files; do
+          # Loop through each last committed file
+          for file in $last_commit_files; do
             # Read up to 20 random characters from the file and store it in the array
-            random_strings+=($(head -c 20 "$file" | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1))
+            random_strings+=($(git show HEAD:"$file" | head -c 20 | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1))
           done
           # Export the array as an environment variable
           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
-
+          
       - name: Set commit message
         id: commit
         run: |
