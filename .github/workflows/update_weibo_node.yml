@@ -27,6 +27,25 @@ jobs:
 
       - name: Generate Hot Topics Markdown
         run: node auto_nodejs.js
+    
+      - name: Generate random strings
+        id: random_strings
+        run: |
+          # Generate 10 random strings and store them in an array
+          random_strings=()
+          for i in {1..10}; do
+            random_strings+=($(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1))
+          done
+          # Export the array as an environment variable
+          echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
+
+      - name: Set commit message
+        id: commit
+        run: |
+          current_time=$(date +"%H:%M:%S")
+          # Access the environment variable to get the random strings
+          random_strings="${RANDOM_STRINGS}"
+          echo "at $current_time with : $random_strings" >> commit_message.txt
 
       - name: Commit and push changes
         run: |
@@ -34,5 +53,5 @@ jobs:
           git config --local user.name "logep"
 
           git add . -- :^node_modules/
-          git commit -m "Create nodejs weibo"
+          git commit -m "$(cat commit_message.txt)"
           git push -f
