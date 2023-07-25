@@ -54,39 +54,51 @@ jobs:
 #           # Export the array as an environment variable
 #           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
  
-      - name: Get last commit hash
-        id: last_commit
-        run: echo "::set-output name=hash::$(git rev-parse HEAD)"
+#       - name: Get last commit hash
+#         id: last_commit
+#         run: echo "::set-output name=hash::$(git rev-parse HEAD)"
 
-      - name: Get last commit files
-        id: last_commit_files
-        run: |
-          hash=${{ steps.last_commit.outputs.hash }}
-          last_commit_files=$(git diff-tree --no-commit-id --name-only -r $hash)
-          echo "::set-output name=files::${last_commit_files[*]}"
+#       - name: Get last commit files
+#         id: last_commit_files
+#         run: |
+#           hash=${{ steps.last_commit.outputs.hash }}
+#           last_commit_files=$(git diff-tree --no-commit-id --name-only -r $hash)
+#           echo "::set-output name=files::${last_commit_files[*]}"
 
-      - name: Generate random strings from last commit files
-        id: random_strings
-        run: |
-          last_commit_files="${{ steps.last_commit_files.outputs.files }}"
-          # Initialize an array to store random strings
-          random_strings=()
-          # Loop through each last committed file
-          for file in $last_commit_files; do
-            # Read up to 20 random characters from the file and store it in the array
-            random_strings+=($(git show HEAD:"$file" | head -c 20 | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1))
-          done
-          # Export the array as an environment variable
-          echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
+#       - name: Generate random strings from last commit files
+#         id: random_strings
+#         run: |
+#           last_commit_files="${{ steps.last_commit_files.outputs.files }}"
+#           # Initialize an array to store random strings
+#           random_strings=()
+#           # Loop through each last committed file
+#           for file in $last_commit_files; do
+#             # Read up to 20 random characters from the file and store it in the array
+#             random_strings+=($(git show HEAD:"$file" | head -c 20 | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1))
+#           done
+#           # Export the array as an environment variable
+#           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
           
+#       - name: Set commit message
+#         id: commit
+#         run: |
+#           current_time=$(date +"%H:%M:%S")
+#           # Access the environment variable to get the random strings
+#           random_strings="${RANDOM_STRINGS}"
+#           echo "at $current_time with : $random_strings" >> commit_message.txt
+    
       - name: Set commit message
         id: commit
         run: |
-          current_time=$(date +"%H:%M:%S")
-          # Access the environment variable to get the random strings
-          random_strings="${RANDOM_STRINGS}"
-          echo "at $current_time with : $random_strings" >> commit_message.txt
-
+          # Array of 10 commit messages
+          commit_messages=("内容获取最新" "实时获取热点数据" "获取24小时数据" "把最新内容展示在前面" "实时热点备份" "当前日期的热点备份" "暂无热点可以向下获取最新" "把最新文件替换掉" "实时更新数据" "最后一次备份")
+          # Get a random index to select a commit message from the array
+          random_index=$(( RANDOM % 10 ))
+          # Retrieve the selected commit message
+          selected_commit_message="${commit_messages[$random_index]}"
+          # Add the commit message to the commit message file
+          echo "$selected_commit_message" > commit_message.txt
+          
       - name: Commit and push changes
         run: |
           git config --local user.email "pingbeer69@gmail.com"
