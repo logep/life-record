@@ -16,6 +16,8 @@ const authToken = process.env.AUTH_TOKEN;
 console.log('authToken',authToken)
 async function getTopicData() {
   const topicsResponse = await fetchPaginatedData('https://www.v2ex.com/api/v2/nodes/tech/topics', 'topics');
+ console.log('topicsResponse')
+ console.log(topicsResponse)
   const topics = topicsResponse.flatMap(response => response.result);
 
   const combinedData = [];
@@ -77,6 +79,8 @@ function fetchData(url) {
 
       response.on('end', () => {
         try {
+         console.log('end',data)
+         console.log( JSON.parse(data))
           const parsedData = JSON.parse(data);
           resolve(parsedData);
         } catch (error) {
