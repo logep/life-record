@@ -97,7 +97,7 @@ async function fetchPaginatedData(url, key) {
 // }
 
 
-async function fetchData(url, authToken) {
+async function fetchData(url) {
   try {
     const options = {
       headers: {
