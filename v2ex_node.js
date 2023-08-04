@@ -3,9 +3,6 @@ const fs = require('fs');
 const https = require('https');
 const { DateTime } = require('luxon');
 
-const https = require('https');
-const fs = require('fs');
-const { DateTime } = require('luxon');
 // 从环境变量中获取 SECRET_TOKEN 的值
 const authToken = process.env.AUTH_TOKEN;
 function getHotTopics(page) {
