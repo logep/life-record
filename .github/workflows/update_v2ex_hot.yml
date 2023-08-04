@@ -81,7 +81,7 @@ jobs:
 #           # Export the array as an environment variable
 #           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
           
-#       - name: Set commit message
+#       - name: Set commit message1
 #         id: commit
 #         run: |
 #           current_time=$(date +"%H:%M:%S")
