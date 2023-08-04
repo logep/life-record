@@ -127,7 +127,8 @@ function generateMarkdownContent(combinedData) {
 function writeTopicToFile(topicData) {
   const currentTime = DateTime.now();
   const dateStr = currentTime.toFormat('yyyyMM');
-  const folderName = `v2ex/${dateStr}`;
+   const dateStr2 = currentTime.toFormat('yyyyMMdd');
+  const folderName = `v2ex/${dateStr}/${dateStr2}`;
   fs.mkdirSync(folderName, { recursive: true });
 
   // const fileName = `${topicData.title}.md`.replace(/[^\w\s]/gi, ''); // 移除文件名中的非法字符
