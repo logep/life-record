@@ -32,7 +32,7 @@ async function getTopicData() {
     const combinedItem = {
       title: topic.title,
       content: topic.content,
-      replies: replies.map(reply => reply.content_rendered),
+      replies: replies.map(reply => reply.content),
     };
 
       // 为每个话题创建单独的文件并写入内容
@@ -131,11 +131,13 @@ function writeTopicToFile(topicData) {
   const folderName = `v2ex/${dateStr}`;
   fs.mkdirSync(folderName, { recursive: true });
 
-  const fileName = `${topicData.title}.md`.replace(/[^\w\s]/gi, ''); // 移除文件名中的非法字符
+  // const fileName = `${topicData.title}.md`.replace(/[^\w\s]/gi, ''); // 移除文件名中的非法字符
+  const fileName = `${topicData.title}.md`;
   const filePath = `${folderName}/${fileName}`;
 
-  let markdownContent = `# ${topicData.title}\n\n${topicData.content}\n\n`;
+  let markdownContent = `### ${topicData.title}\n\n${topicData.content}\n\n`;
   for (const reply of topicData.replies) {
+    markdownContent += `---------------------------------------------------\n\n`;
     markdownContent += `${reply}\n\n`;
   }
 
