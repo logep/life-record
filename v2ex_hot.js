@@ -20,7 +20,7 @@ async function getTopicData() {
   const topicsResponse = await fetchPaginatedData('https://www.v2ex.com/api/topics/hot.json', 'topics');
  console.log('topicsResponse')
 
-  const topics = topicsResponse.flatMap(response => response.result);
+  const topics = topicsResponse.flatMap(response => response);
 
   const combinedData = [];
 
