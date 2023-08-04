@@ -10,6 +10,9 @@ const fs = require('fs');
 const https = require('https');
 const { DateTime } = require('luxon');
 
+const axios = require('axios');
+
+
 // 从环境变量中获取 SECRET_TOKEN 的值
 // const authToken = process.env.AUTH_TOKEN;
  const authToken = 'd8eed901-266a-469f-888c-b8b573a8557b'
@@ -63,34 +66,51 @@ async function fetchPaginatedData(url, key) {
   return allData;
 }
 
-function fetchData(url) {
-  return new Promise((resolve, reject) => {
-            const options = {
+// function fetchData(url) {
+//   return new Promise((resolve, reject) => {
+//             const options = {
+//       headers: {
+//       Authorization: `Bearer ${authToken}` // 使用获取的 authToken
+//       }
+//     };
+//     https.get(url,options, (response) => {
+//       let data = '';
+
+//       response.on('data', (chunk) => {
+//         data += chunk;
+//       });
+
+//       response.on('end', () => {
+//         try {
+//          console.log('end',data)
+//          console.log( JSON.parse(data))
+//           const parsedData = JSON.parse(data);
+//           resolve(parsedData);
+//         } catch (error) {
+//           reject(error);
+//         }
+//       });
+//     }).on('error', (error) => {
+//       reject(error);
+//     });
+//   });
+// }
+
+
+async function fetchData(url, authToken) {
+  try {
+    const options = {
       headers: {
-      Authorization: `Bearer ${authToken}` // 使用获取的 authToken
+        Authorization: `Bearer ${authToken}`
       }
     };
-    https.get(url,options, (response) => {
-      let data = '';
-
-      response.on('data', (chunk) => {
-        data += chunk;
-      });
-
-      response.on('end', () => {
-        try {
-         console.log('end',data)
-         console.log( JSON.parse(data))
-          const parsedData = JSON.parse(data);
-          resolve(parsedData);
-        } catch (error) {
-          reject(error);
-        }
-      });
-    }).on('error', (error) => {
-      reject(error);
-    });
-  });
+    const response = await axios.get(url, options);
+   console.log(response)
+      console.log(options)
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 function generateMarkdownContent(combinedData) {
