@@ -1,0 +1,264 @@
+# 开发了一个 ChatGPT 的浏览器插件，欢迎大家试用
+
+MOSS: ChatGPT for Browsers：<https://github.com/100apps/MOSS>
+
+可以直接在 release 页面下载安装：<https://github.com/100apps/MOSS/releases/tag/v1.0.1>
+
+chrome 应用商店审核中....
+
+# 功能：
+1 ）任何页面右键，可以对选中的文本进行各种 chatgpt prompt ，比如：
+- 直接输入（直接丢给 chatgpt ）
+- 内容提炼（适合新闻类内容）
+- 文字润色（适合写作过程中使用）
+- 批判性分析（适合对网页中的观点使用）
+- .....
+
+2 ）搜索引擎增量：
+在 Google 、baidu 中搜索关键词的时候，自动搜索 chatgpt.
+
+可以使用 gpt-3.5-turbo api ，速度非常快，而且更便宜。
+
+# 致谢
+ fork 自 <https://github.com/josStorer/chatGPT-search-engine-extension>，用了一下午时间，进行改造，主要是追加了右键功能。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
+👍👍
+
+你好，大神，我在浏览器中最高频的使用是用来查 英语单词在 整句话语境中的意思，所以能否做成双变量查询"单词，句子"，就是先用剪贴板存单词，再双击选取整句话扔个 ChatGPT.<br />例句<br /><br />ask chatPGT:<br />你是一位英语词义语法专家，你在教我英语，我给你一句英语句子，和这个句子中的一个单词，请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思,如果单词在这个句子中是习话的一部分，请解释这句句子中的习话，并举几个相同意思的英语例句,并用中文解释例句。 如果你明白了请说同意，然后我们开始<br />chatGPT :好的，我明白了，请给我这个句子和单词。<br /><br /><br /><br /><br />ask chatPGT:<br />句子是：Blowed if I can see where she's got to. . . she doesn't seem the type to elope, for instance. . . but still. . . .<br />单词是：Blowed<br /><br />chatGPT:<br />这个句子中的单词是 "Blowed"，它是 "blow" 的过去分词形式，是英国英语中常用的非正式用语，意思是 "blown"，即"被吹走了"或者"被吹跑了"。在这个句子中，"blowed" 用来表示说话人无法理解她去了哪里，表示困惑和不解。整个句子的意思是：我实在看不出她去哪儿了……比如，她似乎不是私奔的那种人……但还是不清楚。<br /><br />这个单词 "blowed" 在这个句子中是口语化、非正式的用法，相当于 "blown" 的口语化表达，其他类似用法还有：<br /><br />"I'm absolutely blowed if I know how to fix this computer."（我真的不知道怎么修这台电脑。）<br />"I'm blowed if I'm going to let him treat me like that."（我可不会让他那样对我。）<br /><br />我的想法<br /><a target="_blank" href="https://www.v2ex.com/t/919114#reply33" rel="nofollow noopener">https://www.v2ex.com/t/919114#reply33</a><br />但我不会写插件，我觉得你这个插件可以做到
+
+@<a href="/member/z7356995">z7356995</a> 很好的想法，我来实现，预计下周交付给你。
+
+谢谢了，这个比欧路词典精准多了，
+
+不错，要是能使用套娃 chatgpt 网站就好了，chatgpt 本身太慢了...
+
+@<a href="/member/marginleft">marginleft</a> 我要有点新想法，我刚开始的想法是用剪贴板存单词，这样要配合键盘动作取词有点复杂，，我看到 bob 翻译插件有点启发，只要划句子了就有一个按纽可以跳出一个包含所选句子的对话框，然后可以在对话框的句子的单词中点击选词不懂的单词，这样句子和单词两个变量都取到了，还不要复杂的键盘操作。
+
+第一次选择整句，并弹出对话框，第二次  可以点对话框中的单词，如果点了就是查单词在句子中的意思，如果不点，就是查整句的意思
+
+我在我那个字典革命的贴上贴了这个地址，希望看到的人都能用上你的插件
+
+在选择整句弹出的对话框中，整句话的每个单词己被分成一个个小按纽，按一下就进入不懂的单词里，这样词组也可以点，如果都不点，还有一个按钮是整句翻译
+
+感谢大神开发，刚注册来回复
+
+@<a href="/member/marginleft">marginleft</a> 基于「 openai-translator 」扩展了这个功能。<br /><br />已经提交了 PR： <a target="_blank" href="https://github.com/yetone/openai-translator/pull/217" rel="nofollow noopener">https://github.com/yetone/openai-translator/pull/217</a><br /><br />chrome 的话，可以临时在这里下载：<br /><a target="_blank" href="https://github.com/100apps/openai-translator/releases/tag/1.0" rel="nofollow noopener">https://github.com/100apps/openai-translator/releases/tag/1.0</a>
+
+@<a href="/member/z7356995">z7356995</a> 可以尝试上面的版本。
+
