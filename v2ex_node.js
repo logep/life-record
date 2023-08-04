@@ -13,7 +13,7 @@ const { DateTime } = require('luxon');
 // 从环境变量中获取 SECRET_TOKEN 的值
 const authToken = process.env.AUTH_TOKEN;
 
-
+console.log('authToken',authToken)
 async function getTopicData() {
   const topicsResponse = await fetchPaginatedData('https://www.v2ex.com/api/v2/nodes/tech/topics', 'topics');
   const topics = topicsResponse.flatMap(response => response.result);
@@ -27,7 +27,7 @@ async function getTopicData() {
     const combinedItem = {
       title: topic.title,
       content: topic.content,
-      replies: replies.map(reply => reply.content),
+      replies: replies.map(reply => reply.content_rendered),
     };
 
       // 为每个话题创建单独的文件并写入内容
@@ -122,8 +122,9 @@ async function main() {
   try {
 
     //按照主题分类文件
-     await getTopicData();
-
+    
+ const data =  await getTopicData();
+    console.log('Data:', data);
     //把所有主题放到一个文件里
     // const combinedData = await getTopicData();
     // const markdownContent = generateMarkdownContent(combinedData);
