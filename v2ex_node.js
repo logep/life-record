@@ -50,7 +50,7 @@ async function fetchPaginatedData(url, key) {
   let totalPages =key==='replies'?10:1;
 
   do {
-    const data = await fetchData(`${url}&p=${page}`);
+    const data = await fetchData(`${url}?p=${page}`);
     allData.push(data);
 
     if (data.result&&data.result.length) {
