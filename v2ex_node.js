@@ -13,7 +13,7 @@ const { DateTime } = require('luxon');
 // 从环境变量中获取 SECRET_TOKEN 的值
 const authToken = process.env.AUTH_TOKEN;
 
-console.log('authToken',process.env)
+console.log('authToken',authToken)
 async function getTopicData() {
   const topicsResponse = await fetchPaginatedData('https://www.v2ex.com/api/v2/nodes/tech/topics', 'topics');
  console.log('topicsResponse')
