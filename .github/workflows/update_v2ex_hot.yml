@@ -1,0 +1,111 @@
+name: Generate update_v2ex_node by nodejs
+on:
+   push:
+     branches:
+       - main
+   schedule:
+    - cron: '33 21 * * *' # 每天 UTC 0:00 执行
+
+jobs:
+  generate-hot-topics:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Generate Hot Topics Markdown
+        env:
+          AUTH_TOKEN: ${{ secrets.V2EX_TOKEN }}  # 添加你的钉钉机器人 Webhook 地址到 GitHub 仓库的 Secrets 中
+        run: node v2ex_hot.js --AUTH_TOKEN=${AUTH_TOKEN}
+    
+#       - name: Generate random strings
+#         id: random_strings
+#         run: |
+#           # Generate 10 random strings and store them in an array
+#           random_strings=()
+#           for i in {1..10}; do
+#             random_strings+=($(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1))
+#           done
+#           # Export the array as an environment variable
+#           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
+
+#       - name: Generate random strings from staged files
+#         id: random_strings
+#         run: |
+#           # Get the list of staged files
+#           staged_files=$(git diff --cached --name-only)
+#           # Initialize an array to store random strings
+#           random_strings=()
+#           # Loop through each staged file
+#           for file in $staged_files; do
+#             # Read up to 20 random characters from the file and store it in the array
+#             random_strings+=($(head -c 20 "$file" | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1))
+#           done
+#           # Export the array as an environment variable
+#           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
+ 
+#       - name: Get last commit hash
+#         id: last_commit
+#         run: echo "::set-output name=hash::$(git rev-parse HEAD)"
+
+#       - name: Get last commit files
+#         id: last_commit_files
+#         run: |
+#           hash=${{ steps.last_commit.outputs.hash }}
+#           last_commit_files=$(git diff-tree --no-commit-id --name-only -r $hash)
+#           echo "::set-output name=files::${last_commit_files[*]}"
+
+#       - name: Generate random strings from last commit files
+#         id: random_strings
+#         run: |
+#           last_commit_files="${{ steps.last_commit_files.outputs.files }}"
+#           # Initialize an array to store random strings
+#           random_strings=()
+#           # Loop through each last committed file
+#           for file in $last_commit_files; do
+#             # Read up to 20 random characters from the file and store it in the array
+#             random_strings+=($(git show HEAD:"$file" | head -c 20 | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1))
+#           done
+#           # Export the array as an environment variable
+#           echo "RANDOM_STRINGS=${random_strings[*]}" >> $GITHUB_ENV
+          
+#       - name: Set commit message
+#         id: commit
+#         run: |
+#           current_time=$(date +"%H:%M:%S")
+#           # Access the environment variable to get the random strings
+#           random_strings="${RANDOM_STRINGS}"
+#           echo "at $current_time with : $random_strings" >> commit_message.txt
+    
+      - name: Set commit message
+        id: commit
+        run: |
+          # Array of 10 commit messages
+          commit_messages=("内容获取最新" "实时获取热点数据" "获取24小时数据" "把最新内容展示在前面" "实时热点备份" "当前日期的热点备份" "暂无热点可以向下获取最新" "把最新文件替换掉" "实时更新数据" "最后一次备份")
+          # Get a random index to select a commit message from the array
+          random_index=$(( RANDOM % 10 ))
+          # Retrieve the selected commit message
+          selected_commit_message="${commit_messages[$random_index]}"
+          # Add the commit message to the commit message file
+          echo "$selected_commit_message" > commit_message.txt
+          
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+
+          git add . -- :^node_modules/
+          git commit -m "$(cat commit_message.txt)"
+          git push -f
