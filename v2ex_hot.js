@@ -19,7 +19,7 @@ console.log('authToken',authToken)
 async function getTopicData() {
   const topicsResponse = await fetchPaginatedData('https://www.v2ex.com/api/topics/hot.json', 'topics');
  console.log('topicsResponse')
- console.log(topicsResponse)
+
   const topics = topicsResponse.flatMap(response => response.result);
 
   const combinedData = [];
@@ -76,7 +76,7 @@ async function fetchData(url) {
       }
     };
     const response = await axios.get(url, options);
-   console.log(response)
+
       console.log(options)
     return response.data;
   } catch (error) {
