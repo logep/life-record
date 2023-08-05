@@ -1,5 +1,13 @@
 name: Main Workflow
 # https://api.github.com/repos/logep/life-record/actions/workflows/5768305945/dispatches
+# {
+#   "ref": "main",
+#   "inputs": {
+#     "my_parameter": "example_value"
+#   }
+# }
+
+
 on:
   workflow_run:
     workflows: ["Update Hot Topics"]
