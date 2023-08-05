@@ -1,12 +1,37 @@
 name: Main Workflow
+
+# 类似 dingding webhook 通过github dispatches 方式
 # https://api.github.com/repos/logep/life-record/actions/workflows/5768305945/dispatches
+# 'https://api.github.com/repos/logep/life-record/actions/workflows/cron-job.yml/dispatches'
 # {
 #   "ref": "main",
 #   "inputs": {
 #     "my_parameter": "example_value"
 #   }
 # }
+# const url = 'https://api.github.com/repos/logep/life-record/actions/workflows/5768305945/dispatches';
+# const token = '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'; // 替换为您的 Personal Access Token
+# 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
+# const headers = {
+#   'Authorization': `token ${token}`,
+#   'Content-Type': 'application/json',
+# };
 
+# const data = {
+#   ref: 'main',
+#   inputs: {
+#     my_parameter: 'example_value',
+#   },
+# };
+
+# fetch(url, {
+#   method: 'POST',
+#   headers: headers,
+#   body: JSON.stringify(data),
+# })
+#   .then((response) => response.json())
+#   .then((data) => console.log(data))
+#   .catch((error) => console.error('Error:', error));
 
 on:
   workflow_run:
