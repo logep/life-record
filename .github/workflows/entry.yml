@@ -1,5 +1,5 @@
 name: Main Workflow
-
+# https://api.github.com/repos/logep/life-record/actions/workflows/5768305945/dispatches
 on:
   workflow_run:
     workflows: ["Update Hot Topics"]
