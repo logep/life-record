@@ -3,8 +3,9 @@ on:
    # push:
    #   branches:
    #     - main
-   schedule:
-    - cron: '13 22 * * *' # 每天 UTC 0:00 执行
+   workflow_dispatch:
+   # schedule:
+   #  - cron: '01 22 * * *' # 每天 UTC 0:00 执行
 
 jobs:
   generate-hot-topics:
