@@ -15,9 +15,10 @@ const axios = require('axios');
 
 // 从环境变量中获取 SECRET_TOKEN 的值
 const authToken = process.env.AUTH_TOKEN;
+const authTopic = process.env.AUTH_TOPIC;
 console.log('authToken',authToken)
-async function getTopicData(tid) {
-  const topicsResponse = await fetchPaginatedData('https://www.v2ex.com/api/v2/topics/'+tid, 'topics');
+async function getTopicData() {
+  const topicsResponse = await fetchPaginatedData('https://www.v2ex.com/api/v2/topics/'+authTopic, 'topics');
  console.log('topicsResponse')
  console.log(topicsResponse)
   const topics = topicsResponse.flatMap(response => response.result);
