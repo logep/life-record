@@ -29,6 +29,7 @@ jobs:
       - name: Generate Hot Topics Markdown
         env:
           AUTH_TOKEN: ${{ secrets.V2EX_TOKEN }}  # 添加你的钉钉机器人 Webhook 地址到 GitHub 仓库的 Secrets 中
+          AUTH_TOPIC: 963282
         run: node v2ex_topic.js --AUTH_TOKEN=${AUTH_TOKEN} --AUTH_TOPIC=963282
     
 #       - name: Generate random strings
