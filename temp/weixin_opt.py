@@ -3,12 +3,13 @@ import json
 import re
 import random
 import requests
+import os
 from selenium import webdriver
 LOGIN_URL = 'https://mp.weixin.qq.com/'
 SEARCH_URL = 'https://mp.weixin.qq.com/cgi-bin/searchbiz?'
 APPMSG_URL = 'https://mp.weixin.qq.com/cgi-bin/appmsg?'
-const authUser = process.env.AUTH_USER;
-const authPwd = process.env.AUTH_PWD;
+authUser = os.environ.get('AUTH_USER')
+authUser = os.environ.get('AUTH_PWD')
 def get_cookies():
     cookies = {}
 with open('cookie.txt', 'r', encoding = 'utf-8') as f:
