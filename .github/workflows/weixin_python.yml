@@ -11,7 +11,9 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-
+    env:  
+      AUTH_USER: ${{ secrets.AUTH_USER }}
+      AUTH_PWD: ${{ secrets.AUTH_PWD }}
     permissions:
       contents: write
       
