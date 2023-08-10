@@ -28,7 +28,7 @@ jobs:
         run: pip install selenium requests
    
       - name: Run script to add hot topics
-        run: python temp/weixin_opt.py
+        run: python /temp/weixin_opt.py
         
       - name: Commit and push changes
         run: |
