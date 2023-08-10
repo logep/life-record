@@ -25,7 +25,7 @@ jobs:
           python-version: 3.x
    
       - name: Install dependencies
-        run: pip install webdriver selenium requests random re json time
+        run: pip install webdriver_manager selenium requests random re json time
    
       - name: Run script to add hot topics
         run: python temp/weixin_opt.py
