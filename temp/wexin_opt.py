@@ -3,8 +3,7 @@ import json
 import re
 import random
 import requests
-from selenium
-import webdriver
+from selenium import webdriver
 LOGIN_URL = 'https://mp.weixin.qq.com/'
 SEARCH_URL = 'https://mp.weixin.qq.com/cgi-bin/searchbiz?'
 APPMSG_URL = 'https://mp.weixin.qq.com/cgi-bin/appmsg?'
