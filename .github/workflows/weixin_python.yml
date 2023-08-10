@@ -27,7 +27,7 @@ jobs:
           python-version: 3.x
    
       - name: Install dependencies
-        run: pip install selenium requests
+        run: pip install webdriver_manager selenium requests
    
       - name: Run script to add hot topics
         run: python temp/weixin_opt.py
