@@ -1,0 +1,40 @@
+name: weixin_python
+
+on:
+#   push:
+   workflow_dispatch:
+#     branches:
+#       - main
+#  schedule:
+#    - cron: "0 * * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+   
+      - name: Install dependencies
+        run: pip install webdriver selenium requests random re json time
+   
+      - name: Run script to add hot topics
+        run: python temp/weixin_opt.py
+        
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git pull --rebase
+          git add .
+          git commit -m "Create weixin articles"
+          git push
