@@ -5,7 +5,7 @@
     "start": "node auto_nodejs.js"
   },
   "dependencies": {
-       "html-to-text": "^9.0.0",
+    "html-to-text": "^9.0.0",
     "request-promise": "^4.2.0",
     "jsdom": "^18.0.0",
     "luxon": "^2.0.0",
