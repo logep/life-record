@@ -30,6 +30,10 @@ jobs:
         run: pip install webdriver_manager selenium requests beautifulsoup4 html2text datetime
    
       - name: Run script to add hot topics
+        env:
+          AUTH_USER: ${{ secrets.AUTH_USER }}
+          AUTH_PWD: ${{ secrets.AUTH_PWD }}
+          AUTH_PUBLIC: ${{ secrets.AUTH_PUBLIC }}
         run: python weixin-collection.py
         
       - name: Commit and push changes
