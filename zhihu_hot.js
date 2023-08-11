@@ -427,7 +427,7 @@ class ZhiHu {
     // data.create_time = createTime
     data.answer_id = answerId
     data.question_id = questionId
-    data.excerpt=topic.excerpt
+    data.excerpt=topic.target.excerpt
 
     return data
   }
