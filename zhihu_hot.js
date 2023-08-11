@@ -445,15 +445,16 @@ class ZhiHu {
     const file_name = `${question_title}--的回答[${answer_id}].md`
     const currentTime = DateTime.now()
     const dateStr = currentTime.toFormat('yyyyMM')
+      const dateStr2 = currentTime.toFormat('yyyyMMdd')
     // windows 和mac 不一样需要改造 todo
     // const folder_name = `zhihu/${dateStr}/${question_title}`
-    const folder_name = path.join(__dirname, `zhihu/${dateStr}`)
+    const folder_name = path.join(__dirname, `zhihu/${dateStr}/${dateStr2}`)
 
     // 如果有多层的文件夹 可能 需要分别创建
     // Ensure parent directories are created
     try {
       fs.mkdirSync(path.join(__dirname, 'zhihu')) // Create 'zhihu' directory
-      // fs.mkdirSync(path.join(__dirname, `zhihu/${dateStr}`)) // Create 'zhihu/2023-08-10' directory
+       fs.mkdirSync(path.join(__dirname, `zhihu/${dateStr}`)) // Create 'zhihu/2023-08-10' directory
     } catch (error) {
       // Ignore errors if directories already exist
     }
