@@ -28,7 +28,13 @@ jobs:
    
       - name: Install dependencies
         run: pip install webdriver_manager selenium requests beautifulsoup4 html2text datetime
-   
+      - name: Install ChromeDriver
+        run: |
+          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          curl -L -o /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          unzip /tmp/chromedriver.zip -d /tmp
+          chmod +x /tmp/chromedriver
+          sudo mv /tmp/chromedriver /usr/local/bin/
       - name: Run script to add hot topics
         env:
           AUTH_USER: ${{ secrets.AUTH_USER }}
