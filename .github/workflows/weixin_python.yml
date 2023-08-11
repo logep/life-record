@@ -27,10 +27,10 @@ jobs:
           python-version: 3.x
    
       - name: Install dependencies
-        run: pip install webdriver_manager selenium requests
+        run: pip install webdriver_manager selenium requests beautifulsoup4 html2text datetime
    
       - name: Run script to add hot topics
-        run: python temp/weixin_opt.py
+        run: python weixin-collection.py
         
       - name: Commit and push changes
         run: |
