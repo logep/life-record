@@ -1,4 +1,4 @@
-name: Generate update_v2ex_node by nodejs
+name: zhihu-hot
 on:
    workflow_dispatch:
    # push:
