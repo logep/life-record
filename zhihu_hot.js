@@ -77,14 +77,15 @@ async function fetchPaginatedData(url, key) {
 
 async function fetchData(url) {
   try {
-    const options = {
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    };
-    const response = await axios.get(url, options);
+    // const options = {
+    //   headers: {
+    //     Authorization: `Bearer ${authToken}`
+    //   }
+    // };
+        // const response = await axios.get(url, options);
+    const response = await axios.get(url);
    console.log(response)
-      console.log(options)
+      // console.log(options)
     return response.data;
   } catch (error) {
     throw error;
