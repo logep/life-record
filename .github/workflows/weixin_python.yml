@@ -40,7 +40,7 @@ jobs:
           AUTH_USER: ${{ secrets.AUTH_USER }}
           AUTH_PWD: ${{ secrets.AUTH_PWD }}
           AUTH_PUBLIC: ${{ secrets.AUTH_PUBLIC }}
-        run: python weixin-collection.py
+        run: python weixinlink.py
         
       - name: Commit and push changes
         run: |
