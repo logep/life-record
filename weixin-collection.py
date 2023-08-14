@@ -179,6 +179,7 @@ def get_page_content(link):
     options = webdriver.ChromeOptions()
     #driver = webdriver.Chrome(options=options)
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    print('chrome安装路径 get_page_content#######', ChromeDriverManager().install())
     driver.get(link)
 
     # 等待页面加载完成，可以根据具体的元素等待条件进行调整 js_pc_qr_code_img
