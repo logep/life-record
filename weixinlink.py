@@ -22,7 +22,7 @@ SEARCH_URL = 'https://mp.weixin.qq.com/cgi-bin/searchbiz?'
 APPMSG_URL = 'https://mp.weixin.qq.com/cgi-bin/appmsg?'
 #auth_user = '@163.com'
 #auth_pwd = ''
-
+auth_public = '程公众号'
 
 def extract_title(html):
     soup = BeautifulSoup(html, 'html.parser')
@@ -98,7 +98,7 @@ def transform_to_markdown(data,file_name):
     current_time = datetime.now()
     date_str = current_time.strftime("%Y%m")
     date_str2 = current_time.strftime("%Y%m%d")
-    folder_name = os.path.join("weixin", date_str+'/'+date_str2)
+    folder_name = os.path.join("weixin", date_str+'/'+auth_public)
     os.makedirs(folder_name, exist_ok=True)
 
     # 生成文件路径和文件名
@@ -144,11 +144,20 @@ def transform_to_markdown(data,file_name):
     print(f"Markdown content saved to {file_path}")
 
 
+
+
+
+
    
 def process_links2():
     
-    links = ['http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=1&sn=f245ead1bf880736a171e02f88e2868b&chksm=cfd62a53f8a1a345878872bb0cc49b7a76439a8c3fd6b08ac9d1ce8042681db7afb0fd137424#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=2&sn=827ad3b20cf2854df616515623900da2&chksm=cfd62a53f8a1a3455948bd0f731286b2c02edb9d819939f5158021a1685d95d91e46674896cc#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=3&sn=3d046b6f61500eaec263746980e0b6fc&chksm=cfd62a53f8a1a345437825bf354354bb0f3d7891b9514f1c66cc94663448bb78e7925f6aba4c#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=4&sn=fea01d18e7c74b9266a48e8606edaccf&chksm=cfd62a53f8a1a3458a8a4d4f66cbf9cf5481957f6974cd513f15ec8b7f3d3703c9155160608e#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=5&sn=7ef5b287f85e3a95437772c84c54b0bc&chksm=cfd62a53f8a1a34562ea1a2bcb552995e60190492a4dd3f4d13177c27f7b72ab57f7bb12505e#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=6&sn=c8c6a1414cada6f327375cb0767ca552&chksm=cfd62a53f8a1a3452a23df825de6b3a413ef4c323ec31e6b1c68fc0cbe48c07376028b621b4b#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=8&sn=4cb37e6d03f752ee4bfd853aefdba19d&chksm=cfd62a53f8a1a345ed997fb2ab1bf99b21fdce1febe8ce625d3e4dc8c74b26bf35988d5a5c52#rd']
-
+    #links = ['http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=1&sn=f245ead1bf880736a171e02f88e2868b&chksm=cfd62a53f8a1a345878872bb0cc49b7a76439a8c3fd6b08ac9d1ce8042681db7afb0fd137424#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=2&sn=827ad3b20cf2854df616515623900da2&chksm=cfd62a53f8a1a3455948bd0f731286b2c02edb9d819939f5158021a1685d95d91e46674896cc#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=3&sn=3d046b6f61500eaec263746980e0b6fc&chksm=cfd62a53f8a1a345437825bf354354bb0f3d7891b9514f1c66cc94663448bb78e7925f6aba4c#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=4&sn=fea01d18e7c74b9266a48e8606edaccf&chksm=cfd62a53f8a1a3458a8a4d4f66cbf9cf5481957f6974cd513f15ec8b7f3d3703c9155160608e#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=5&sn=7ef5b287f85e3a95437772c84c54b0bc&chksm=cfd62a53f8a1a34562ea1a2bcb552995e60190492a4dd3f4d13177c27f7b72ab57f7bb12505e#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=6&sn=c8c6a1414cada6f327375cb0767ca552&chksm=cfd62a53f8a1a3452a23df825de6b3a413ef4c323ec31e6b1c68fc0cbe48c07376028b621b4b#rd', 'http://mp.weixin.qq.com/s?__biz=Mzg5MDc4MTE4NQ==&mid=2247483709&idx=8&sn=4cb37e6d03f752ee4bfd853aefdba19d&chksm=cfd62a53f8a1a345ed997fb2ab1bf99b21fdce1febe8ce625d3e4dc8c74b26bf35988d5a5c52#rd']
+links = []
+with open("links.txt", "r") as file:
+    for line in file:
+        link = line.strip()  # 去除行末尾的换行符和空格
+        if link:
+            links.append(link)
     
     for idx, link in enumerate(links, start=1):
         #response = requests.get(link)
