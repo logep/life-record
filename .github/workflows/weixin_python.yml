@@ -36,11 +36,11 @@ jobs:
           chmod +x /tmp/chromedriver
           sudo mv /tmp/chromedriver /usr/local/bin/
       - name: Run script to add hot topics
-        env:
-          AUTH_USER: ${{ secrets.AUTH_USER }}
-          AUTH_PWD: ${{ secrets.AUTH_PWD }}
-          AUTH_PUBLIC: ${{ secrets.AUTH_PUBLIC }}
-        run: python weixinlink.py
+        # env:
+        #   AUTH_USER: ${{ secrets.AUTH_USER }}
+        #   AUTH_PWD: ${{ secrets.AUTH_PWD }}
+        #   AUTH_PUBLIC: ${{ secrets.AUTH_PUBLIC }}
+        # run: python weixinlink.py
         
       - name: Commit and push changes
         run: |
@@ -49,4 +49,4 @@ jobs:
           git pull --rebase
           git add .
           git commit -m "Create weixin articles"
-          git push
+          git push -f
