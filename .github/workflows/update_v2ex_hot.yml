@@ -1,10 +1,10 @@
-name: Generate update_v2ex_node by nodejs
+name: v2ex_hot.js nodejs
 on:
    # push:
    #   branches:
    #     - main
    schedule:
-    - cron: '33 21 * * *' # 每天 UTC 0:00 执行
+    - cron: '53 21 * * *' # 每天 UTC 0:00 执行
 
 jobs:
   generate-hot-topics:
