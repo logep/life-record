@@ -1,4 +1,4 @@
-name: Generate Hot Topics by nodejs
+name: weibo-node dingshi
 on:
    # push:
    #   branches:
