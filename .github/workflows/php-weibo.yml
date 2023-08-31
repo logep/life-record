@@ -1,0 +1,32 @@
+name: PHP Script
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main  # 更改为您希望触发工作流程的分支
+
+jobs:
+  run_php_script:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'  # 指定您希望使用的PHP版本
+    
+    - name: Run PHP script
+      run: php weibo.php
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git reset --hard HEAD
+          git pull --rebase
+          git add .
+          git commit -m "php Create weixin articles"
+          git push -f
