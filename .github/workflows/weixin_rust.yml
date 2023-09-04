@@ -1,0 +1,34 @@
+name: weixin_rust
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Build and run Rust script
+      run: |
+        cargo build --release
+        ./target/release/my-rust-program
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git reset --hard HEAD
+          git pull --rebase
+          git add .
+          git commit -m "Create weixin articles"
+          git push -f
