@@ -1,0 +1,37 @@
+name: C++ Build and Run
+
+on:
+#   push:
+   workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 使用 Ubuntu 环境，你可以根据需要选择其他环境
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2  # 检出你的代码库
+
+    - name: Set up CMake
+      run: sudo apt-get install -y cmake  # 安装 CMake，你也可以根据你的构建工具进行更改
+
+    - name: Build C++ Code
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make  # 使用你的构建工具编译项目
+
+    - name: Run C++ Program
+      run: |
+        cd build
+        ./your_cpp_program  # 替换为你的可执行文件的名称
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git reset --hard HEAD
+          git pull --rebase
+          git add .
+          git commit -m "Create C++ articles"
+          git push -f
