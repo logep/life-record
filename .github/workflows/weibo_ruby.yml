@@ -6,7 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest  # 使用Ubuntu操作系统环境
-
+    permissions:
+      contents: write
     steps:
     - name: Checkout code
       uses: actions/checkout@v2  # 检出你的代码仓库
