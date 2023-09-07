@@ -22,7 +22,7 @@ end
 def add_hot_topics_to_repository(hot_topics)
   # 获取当前时间并生成文件名
   current_time = DateTime.now
-  date_str = current_time.strftime('%Y%m')
+  date_str = current_time.strftime('%Y%m%d')
   folder_name = File.join('weibo', date_str)
   FileUtils.mkdir_p(folder_name)
 
