@@ -1,0 +1,32 @@
+name: weibo_ruby
+
+on:
+   workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 使用Ubuntu操作系统环境
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # 检出你的代码仓库
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1  # 设置Ruby环境
+      with:
+        ruby-version: 2.7  # 指定所需的Ruby版本
+
+    # - name: Install dependencies
+    #   run: gem install bundler -v 2.2.26  # 安装Bundler，如果需要的话
+
+    - name: Run Ruby script
+      run: ruby weibo_ruby.rb  # 替换为你的Ruby脚本的文件名
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git reset --hard HEAD
+          git pull --rebase
+          git add .
+          git commit -m "Create weixin articles"
+          git push -f
