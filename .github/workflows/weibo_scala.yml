@@ -1,0 +1,24 @@
+name: weibo_scala
+
+on:
+   workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: 11  # 或您所需的 Java 版本
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build and Test Scala
+      run: |
+        sbt compile  # 替换为您的构建和测试命令
+
+    # 如果需要，您可以在此处添加其他步骤，例如部署到服务器或发布到存储库
+
