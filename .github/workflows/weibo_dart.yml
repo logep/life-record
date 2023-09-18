@@ -1,0 +1,23 @@
+name: weibo_dart
+
+on:
+   workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Dart
+      uses: dart-lang/setup-dart@v2
+      with:
+        dart-version: stable
+
+    - name: Install dependencies
+      run: dart pub get  # Use flutter pub get if using Flutter
+
+    - name: Run Dart tests
+      run: dart weibo.dart  # Use flutter test if using Flutter
