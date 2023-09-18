@@ -1,0 +1,13 @@
+name: weibo
+description: A new Dart project
+
+environment:
+  sdk: '^2.12.0'
+
+dependencies:
+ # flutter:
+ #   sdk: flutter
+  http: ^0.13.0 # Add the http package and specify a version (check for the latest version)
+
+# Other configurations...
+
