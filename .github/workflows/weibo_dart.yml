@@ -21,3 +21,13 @@ jobs:
 
     - name: Run Dart tests
       run: dart weibo.dart  # Use flutter test if using Flutter
+      
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git reset --hard HEAD
+          git pull --rebase
+          git add .
+          git commit -m "Create weibo dart articles"
+          git push -f
