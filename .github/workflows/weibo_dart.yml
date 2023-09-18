@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Dart
-      uses: dart-lang/setup-dart@v2
+      uses: dart-lang/setup-dart@v1
       with:
         dart-version: stable
 
