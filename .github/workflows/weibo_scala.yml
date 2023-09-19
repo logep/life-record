@@ -6,7 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
     - name: Set up JDK
       uses: actions/setup-java@v2
@@ -18,7 +19,15 @@ jobs:
 
     - name: Build and Test Scala
       run: |
-        sbt compile  # 替换为您的构建和测试命令
+        sbt run  # compile 替换为您的构建和测试命令
 
     # 如果需要，您可以在此处添加其他步骤，例如部署到服务器或发布到存储库
-
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git reset --hard HEAD
+          git pull --rebase
+          git add .
+          git commit -m "Create weixin articles"
+          git push -f
