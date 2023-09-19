@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and Test Scala
       run: |
-        sbt compile && sbt run  # compile scala MyApp.scala 替换为您的构建和测试命令
+        sbt clean && sbt compile && sbt run  # compile scala MyApp.scala 替换为您的构建和测试命令
 
     # 如果需要，您可以在此处添加其他步骤，例如部署到服务器或发布到存储库
     - name: Commit and push changes
