@@ -30,5 +30,6 @@ jobs:
           git reset --hard HEAD
           git pull --rebase
           git add .
+          git rm -r --cached target
           git commit -m "Create weixin articles"
           git push -f
