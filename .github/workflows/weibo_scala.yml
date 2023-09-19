@@ -9,17 +9,18 @@ jobs:
     permissions:
       contents: write
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
-        java-version: 11  # 或您所需的 Java 版本
+        java-version: 1.8  # 11 或您所需的 Java 版本
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+
 
     - name: Build and Test Scala
       run: |
-        sbt run  # compile 替换为您的构建和测试命令
+        sbt compile && sbt run  # compile scala MyApp.scala 替换为您的构建和测试命令
 
     # 如果需要，您可以在此处添加其他步骤，例如部署到服务器或发布到存储库
     - name: Commit and push changes
