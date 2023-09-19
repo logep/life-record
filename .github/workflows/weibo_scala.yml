@@ -10,7 +10,7 @@ jobs:
       contents: write
     steps:
     - name: Set up JDK
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v1
       with:
         java-version: 11  # 或您所需的 Java 版本
 
