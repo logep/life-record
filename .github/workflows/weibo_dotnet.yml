@@ -1,0 +1,35 @@
+name: weibo_dotnet
+
+on:
+   workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0 # 或您需要的 .NET 版本
+
+    - name: Build and Test
+      run: |
+        dotnet clean
+        dotnet build
+        dotnet run
+    # 如果需要，您可以在此处添加其他步骤，例如部署到服务器或发布到存储库
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "pingbeer69@gmail.com"
+          git config --local user.name "logep"
+          git reset --hard HEAD
+          git pull --rebase
+          git add .
+          git rm -r --cached target
+          git commit -m "Create dotnet weixin articles"
+          git push -f
