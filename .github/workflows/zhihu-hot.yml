@@ -4,8 +4,8 @@ on:
    # push:
    #   branches:
    #     - main
-   schedule:
-    - cron: '33 20 * * *' # 每天 UTC 0:00 执行
+   # schedule:
+   #  - cron: '33 20 * * *' # 每天 UTC 0:00 执行
 
 jobs:
   generate-hot-topics:
