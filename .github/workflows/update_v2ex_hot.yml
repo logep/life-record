@@ -4,7 +4,7 @@ on:
    #   branches:
    #     - main
    schedule:
-    - cron: '53 21 * * *' # 每天 UTC 0:00 执行
+    - cron: '53 19 * * *' # 每天 UTC 0:00 执行
 
 jobs:
   generate-hot-topics:
