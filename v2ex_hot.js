@@ -103,8 +103,13 @@ function writeTopicToFile(topicData) {
   fs.mkdirSync(folderName, { recursive: true });
 
   // const fileName = `${topicData.title}.md`.replace(/[^\w\s]/gi, ''); // 移除文件名中的非法字符
-  const fileName = `${topicData.title}.md`;
-  const filePath = `${folderName}/${fileName}`;
+   const regex = /[^\u4e00-\u9fa5a-zA-Z0-9_\-]/g;
+   const fileName = `${topicData.title}.md`;
+  // 使用replace方法替换匹配到的字符为空字符串
+  const resultName = fileName.replace(regex, '');
+ 
+ 
+  const filePath = `${folderName}/${resultName}`;
 
   let markdownContent = `### ${topicData.title}\n\n${topicData.content}\n\n`;
   for (const reply of topicData.replies) {
