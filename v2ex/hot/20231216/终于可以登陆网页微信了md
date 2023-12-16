@@ -1,0 +1,751 @@
+### 终于可以登陆网页微信了
+
+https://wx.qq.com
+
+安装扩展： https://github.com/lqzhgood/wechat-need-web
+解压到一个文件夹，然后开发模式加载扩展。
+如果不能登陆先去这里登陆再试试：
+https://szfilehelper.weixin.qq.com/
+
+---------------------------------------------------
+
+小号可以试试，大号不敢用
+
+---------------------------------------------------
+
+@OranNeo 开源的，扫码登陆，安全方面可以
+
+---------------------------------------------------
+
+@happmaoo 主要怕微信官方检测封号
+
+---------------------------------------------------
+
+试了，不行
+
+---------------------------------------------------
+
+这个之前在 V2 看到的 一直在用，很方便 大号登录已经大半年了 放心 。 在公司用的话 可以再搜一个扩展：摸鱼上微信，可以伪装成云笔记页面
+
+---------------------------------------------------
+
+不好意思没注意到板块。linux 的不太清楚
+
+---------------------------------------------------
+
+@ALLENi 谢谢，linux 下微信登陆还是挺麻烦的。
+
+---------------------------------------------------
+
+场景不清晰
+
+---------------------------------------------------
+
+@ALLENi 老哥用的是哪个
+
+---------------------------------------------------
+
+@GGG123Z #9 也是 up 的链接 一样的 用法也是一样
+
+---------------------------------------------------
+
+can try try UOS Wechat
+
+https://zhuanlan.zhihu.com/p/620834763
+
+---------------------------------------------------
+
+每次看到这种话题，我只想说 妈多龙每天死一个妈
+
+---------------------------------------------------
+
+@happmaoo #7 aur com.qq.weixin.spark 这个包挺好用的
+
+---------------------------------------------------
+
+国内微信号提示需要开通微信支付才可以使用
+海外账号直接提示不可用
+
+---------------------------------------------------
+
+chrom 浏览器试了，不行
+
+---------------------------------------------------
+
+没 pc 端好用，但是能弥补 linux 平台缺失
+
+---------------------------------------------------
+
+就是好奇这个 web 微信一直留着，也不给用户登，是给谁用的呢？
+
+---------------------------------------------------
+
+可以登录了，这是啥原理？总的还得先问候一句，该死的 wx ，linux 下真的是哔了狗
+
+---------------------------------------------------
+
+@hanksun 统信 UOS 的 wx 好像是网页版的套壳?
+
+---------------------------------------------------
+
+@derdct 不是吧，那个是基于 wine 的某个稳定版本吧
+
+---------------------------------------------------
+
+@L0L 不懂，之前看到是截断浏览器的请求头 应该类似吧
+
+---------------------------------------------------
+
+@L0L #18 aur com.qq.weixin.spark 这个包 已经能大部分功能适配了，小程序朋友圈都 ok
+
+---------------------------------------------------
+
+@Corybyte 之前在 uos 上和 unbuntu 上用的比较流畅，rpm fedora 下不太好；
+
+---------------------------------------------------
+
+@hanksun 部分用户是可以登录的，具体比例不清楚，身边的统计学结果表明，不能登录的大概在 10%。
+
+---------------------------------------------------
+
+为什么现在官方的网页版微信不能登录，啥情况，之前都可以的
+
+---------------------------------------------------
+
+亲测测试可以使用，这玩意会不会封杀啊，怕怕
+
+---------------------------------------------------
+
+登录还是登陆？？？
+
+---------------------------------------------------
+
+@neutrino 这部分能登录的用户有啥特征吗😂
+
+---------------------------------------------------
+
+@BaiLinfeng 容易被黑灰产利用。
+
+---------------------------------------------------
+
+我一直在用模拟 UOS 那个 electron 版本的方式，大概一年了没有问题。
+
+登录请求抓下来印象是三个特殊 header 字段，然后登录链接加个 &target=t 就行。
+
+---------------------------------------------------
+
+@BaiLinfeng #25 wechat_bot 泛滥
+
+---------------------------------------------------
+
+@hanksun #28 可能是在封禁之前 web 版登录过的用户吧
+
+---------------------------------------------------
+
+不行的看这个参考下：
+https://www.zhihu.com/question/344766817/answer/3221714204
+
+---------------------------------------------------
+
+@xuAN111 对于那些产业，应该用其他手段而不是用降低用户体验的方式，限制几个接口就行了。国外的 IM 软件哪个不给使用 Web 版本？微信之所以不让你用，是因为网页版妨碍了上传电脑的数据。
+
+---------------------------------------------------
+
+@L0L 网页套壳版本是存在的，网上找到过移植版，还需要补装一些东西才能跑起来。在 Zorin(也就是 Ubuntu)上运行成功。当然，那个是几个月前了，现在能不能登录就没试过了
+
+---------------------------------------------------
+
+@hanksun 之前没有登陆过的
+
+---------------------------------------------------
+
+@abc8678 还有一个版本，QQ 浏览器侧边栏自带的网页版微信，不能登录的用户可以登录
+
+---------------------------------------------------
+
+@YaD2x wechat_bot 泛滥啥意思啊?
+
+---------------------------------------------------
+
+@xuAN111 容易被黑灰产利用?啥意思？意思是关闭的原因是怕被黑产利用吗？还是说我登录过人家可以拿到我的什么信息？ v2 回复都看不到回复的哪天原文
+
+---------------------------------------------------
+
+@BaiLinfeng #38 一旦开放 web 端 更有利于机器人开发吧，市面上肯定各种各样的机器人 对于国民级应用肯定是不能存在这种情况的
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
+---------------------------------------------------
+
+@kuanat 有教程吗，想看看你说的这个
+
+---------------------------------------------------
+
+@BaiLinfeng #41 
+
+前面是手机回复的，开电脑看了一下。
+
+登录链接用：
+
+https://wx.qq.com/?&lang=zh_CN&target=t
+
+然后用个可以改 header 的扩展，匹配一下 https://wx.qq.com/* 的请求，添加两个字段
+
+client-version = 2.0.0
+
+extspam =
+Go8FCIkFEokFCggwMDAwMDAwMRAGGvAESySibk50w5Wb3uTl2c2h64jVVrV7gNs06GFlWplHQbY/5FfiO++1yH4ykCyNPWKXmco+wfQzK5R98D3so7rJ5LmGFvBLjGceleySrc3SOf2Pc1gVehzJgODeS0lDL3/I/0S2SSE98YgKleq6Uqx6ndTy9yaL9qFxJL7eiA/R3SEfTaW1SBoSITIu+EEkXff+Pv8NHOk7N57rcGk1w0ZzRrQDkXTOXFN2iHYIzAAZPIOY45Lsh+A4slpgnDiaOvRtlQYCt97nmPLuTipOJ8Qc5pM7ZsOsAPPrCQL7nK0I7aPrFDF0q4ziUUKettzW8MrAaiVfmbD1/VkmLNVqqZVvBCtRblXb5FHmtS8FxnqCzYP4WFvz3T0TcrOqwLX1M/DQvcHaGGw0B0y4bZMs7lVScGBFxMj3vbFi2SRKbKhaitxHfYHAOAa0X7/MSS0RNAjdwoyGHeOepXOKY+h3iHeqCvgOH6LOifdHf/1aaZNwSkGotYnYScW8Yx63LnSwba7+hESrtPa/huRmB9KWvMCKbDThL/nne14hnL277EDCSocPu3rOSYjuB9gKSOdVmWsj9Dxb/iZIe+S6AiG29Esm+/eUacSba0k8wn5HhHg9d4tIcixrxveflc8vi2/wNQGVFNsGO6tB5WF0xf/plngOvQ1/ivGV/C1Qpdhzznh0ExAVJ6dwzNg7qIEBaw+BzTJTUuRcPk92Sn6QDn2Pu3mpONaEumacjW4w6ipPnPw+g2TfywJjeEcpSZaP4Q3YV5HG8D6UjWA4GSkBKculWpdCMadx0usMomsSS/74QgpYqcPkmamB4nVv1JxczYITIqItIKjD35IGKAUwAA==
+
+估计搜一下“微信 extspam”就能找到，基于 UOS 的都应该是这个方法。
+
+---------------------------------------------------
+
+@kuanat 给我看懵逼了，表示不太明白哈哈哈哈，惭愧
+
+---------------------------------------------------
+
+@hanksun 
+我司做过一阵微信机器人。。。
+web 微信以前是能登的。。。
+后来变成老账号可以登新账号要过很久才能登。。。
+再后来变成更老的账号可以登但是登多了也会不能登。。。
+到现在我们这边基本就一些老年人的号可以登。。。
+
+---------------------------------------------------
+
+张小龙打高尔夫打到司马所以没时间管 linux 微信
+
+---------------------------------------------------
+
+这个英文的 readme......写得有点不大通顺
+
+---------------------------------------------------
+
+@ntedshen 感谢分享。。。
+
+---------------------------------------------------
+
+为啥网页版很容易缺消息
+
+---------------------------------------------------
+
+可以试试用 tg 上微信 可以实现多端登录微信 搜 telegram-wechat
+
+---------------------------------------------------
+
+Linux 下开虚拟机在 xp 里面用微信很好用的，就一开始设置的时候麻烦些，后面很爽，给个 2g 内存 1 核就可以了。
+
+---------------------------------------------------
+
+用这个插件有一段时间了，我记得作者在 github 的 wiki 里写过不要在任何地方分享？
+
+---------------------------------------------------
+
+@ltkun #49 搜不到（
+
+---------------------------------------------------
+
+@Aloento https://www.sufangxu.cn/Topic/13456
+
