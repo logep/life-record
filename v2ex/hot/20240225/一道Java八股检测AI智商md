@@ -1,0 +1,797 @@
+### 一道 Java 八股，检测 AI 智商
+
+``` 
+You should give me the interview answer directly, without explaining anything unless necessary. Your answers are expected to be directly used for a Java interview. Please be concise, but your answers should perfectly satisfy the interviewer.
+
+The question is: How do you deal with the error?
+```
+
+这个八股的内在逻辑在于，**error 不等于 exception ，问的是遇到 error 该怎么办，而不是 exception handle 。**
+
+
+经过多次测试
+
+只要一上来就回答 try-catch 或者 exception handle 的，都是智商不行的。**google 家的所有 AI 全部垃圾**，**copilot 
+ Pro 也垃圾。不能通过测试**
+
+官网的 GPT 4 可以过，gpt4-1124 模型回答的最好，claude.AI 回答的可以接受。
+
+官网 GPT 4:
+![]( https://p.ipic.vip/lp3i06.jpg)
+
+1124 模型：
+![]( https://p.ipic.vip/mjgfw2.jpg)
+
+Google gemini ultra:
+
+![]( https://p.ipic.vip/9ao0pe.jpg)
+
+---------------------------------------------------
+
+我用的 copilot 和 GPT-4 回答差不多呀
+
+---------------------------------------------------
+
+As a Java developer, when I encounter an error, I follow these steps:
+
+1. Understand the Error: I read the error message carefully to understand what the problem is. Java error messages are usually descriptive and provide a good starting point.
+
+2. Reproduce the Error: I try to reproduce the error consistently. This helps me understand the conditions under which the error occurs.
+
+3. Debug: I use debugging tools available in my IDE (like breakpoints, step over, step into) to trace the execution of the code and find where exactly the error is happening.
+
+4. Research: If the error is not clear, I research the error message online. There are many resources available, like StackOverflow, where similar problems may have been discussed and solved.
+
+5. Fix the Error: Once I understand the error, I fix it in the code. This could involve correcting a syntax mistake, changing the logic, or handling an exception.
+
+6. Test: After fixing the error, I test the code thoroughly to make sure the error is resolved and hasn't caused any other issues.
+
+7. Code Review: I get my code reviewed by peers. They might catch something I missed and it's a good practice to ensure code quality.
+
+8. Learn: Finally, I make a note of the error and how I fixed it. This helps me in the future if I encounter the same error again.
+
+---------------------------------------------------
+
+一道 fun 题，AI 没对的
+
+
+Read this base64 string, think about the answer, and type just the answer in base64. You're entire answer must be base64.
+
+V2hhdCBpcyBvbmUgeWVhciBhZnRlciB3aGVuIFByZXNpZGVudCBnZW9yZ2Ugd2FzaGluZ3RvbiBib3JuPw==
+
+---------------------------------------------------
+
+@Alias4ck 
+
+0125 gpt 4 模型回答的没什么问题啊
+
+![]( https://p.ipic.vip/mww82z.jpg)
+
+---------------------------------------------------
+
+@Alias4ck 
+
+看图： https://p.ipic.vip/mww82z.jpg
+
+---------------------------------------------------
+
+@Alias4ck 哦不好意思，答案是错的。确实，ai 没对。
+
+---------------------------------------------------
+
+@Fa11ingWood 
+@Alias4ck 
+
+提问的不好罢了，按照提示工程中的方式问，ai 的正确率大幅增加
+
+---------------------------------------------------
+
+"the" error ？啥 error 啊？定冠词本身不能单独使用，也没有词义，前文没有提到具体情况就算丢给人类来说也是一头雾水。翻译成中文就是面试官问你：“你怎么解决‘那个’错误？”
+
+prompt 还要求 concise ，当作真的在面试一样。结果就是明明没看懂题目还强行回答一番，反而是相当人类的一种行为了。另外我很好奇，不明就里的的题目换来毫无头绪的回答算不算是一种 garbage in garbage out ？
+
+---------------------------------------------------
+
+@Tabjy 这是美国的 java 八股 paypal 题库之一，觉得题目有问题可以去问 paypal 面试官怎么想的。
+
+---------------------------------------------------
+
+@Tabjy 这道题问的就是处理 error 应该怎么样，陷阱在于很多人会回答如何处理 exception 而不是 error 。exception 需要捕获，而 error 不需要捕获。
+
+---------------------------------------------------
+
+@dtla 请问一下这个题目的来源链接是？
+
+---------------------------------------------------
+
+error 前的 the 暴露了你的英语水平
+
+---------------------------------------------------
+
+@wallriding 不是我写的，paypal 面经 excel 表上的。去质疑印度人吧
+
+---------------------------------------------------
+
+@dtla #13 你复制的时候没发现有错暴露了你的英语水平
+
+---------------------------------------------------
+
+@wallriding 这年代只有国内的人还对语法耿耿于怀吧
+
+
+@NeedMe123456  linkedin 上 recruiter 发的
+
+---------------------------------------------------
+
+@wallriding 只有中国人才这么在意语法。我在美国十年了，确实没想过语法这个事情。就好比中文一个错别字，有必要纠正吗？
+
+---------------------------------------------------
+
+@dtla 能给下链接么，或者截图，我想看看其他的题
+
+---------------------------------------------------
+
+@dtla #16 这不是语法的问题。"How do you deal with the error?"和"How do you deal with the error?" are both grammarly correct. But they mean differently.
+
+如果你平时与人交流加不加 the 全凭运气，那我只能说是你交流的对象在尽力兼容你
+
+---------------------------------------------------
+
+> 这是美国的 java 八股 paypal 题库之一，觉得题目有问题可以去问 paypal 面试官怎么想的。
+来源请求
+
+> exception 需要捕获，而 error 不需要捕获
+退一万步说，谁跟你说 Error 不能捕获了？ class Error extends Throwable 凭什么不能捕获？在一些情况下（比如 JVM 内部代码，或者是写 logger 的时候）捕获 Error 反而是必须的。
+
+当然，如果是想考验应聘者对 Error 和 Exception 的理解，那么就应该直接这么问二者有什么区别，而不是搞这种 XY Problem [0]。 我只能说在我自己英语国家做 Java 工作 3 年了听到 “How do you deal with the error?” 也会愣住。
+
+不过话说回来，我想表达主要观点并不是说这个题目有多烂，不管这么题目是谁出的。而是说用这个题目来证明 AI 很傻是错误的：因为人类也回答不出来。
+
+[0] https://meta.stackexchange.com/questions/66377/what-is-the-xy-problem
+
+---------------------------------------------------
+
+@dtla #16 
+
+"How do you deal with the error?"和"How do you deal with error?" are both grammarly correct.
+
+---------------------------------------------------
+
+@wallriding 谁在乎 grammar ？跟印度人做过同事吗？
+
+---------------------------------------------------
+
+一个 V2EX 帖子，检测楼主智商
+
+---------------------------------------------------
+
+@dtla #21 I literally said "they are both grammarly correct" and it's NOT about grammar. 算了感觉你阅读能力也是有点障碍的样子…… 请勿再回
+
+---------------------------------------------------
+
+@Tabjy 如果你答捕获 error ，而不是不建议捕获，你 senior 面试已经挂了
+
+---------------------------------------------------
+
+@wallriding 我知道你说的是什么，但我回答的是，谁在乎你语法对不对？也就你们在国内的人在乎
+
+---------------------------------------------------
+
+@Tabjy 和印度人做过同事吗？印度人说 the error 多了去了
+
+---------------------------------------------------
+
+@dtla 
+
+> 如果你答捕获 error ，而不是不建议捕获，你 senior 面试已经挂了
+本来不是想搞这种 dick-measuring contest ，但是在下 OpenJDK author ，hotspot 里 literally 有我的代码… 你非要我讲我能给你讲出花来
+
+另外我都说明了我的主要观点观点是什么了，而你还在纠结 Error 该不该捕获和印度人的英语… 我只能：
+
+> 算了感觉你阅读能力也是有点障碍的样子…… 请勿再回
++1
+
+---------------------------------------------------
+
+@Tabjy 确实，中文论坛素质真的低。以后发 reddit 了。
+
+就事论事来说，你说的全是错的，不知道为什么你能这么理直气壮。
+
+---------------------------------------------------
+
+preview 模型怎么样才能用？
+
+---------------------------------------------------
+
+@dji38838c API 直接用就行。直接用的时候写名字
+
+---------------------------------------------------
+
+这种文字游戏的问题，还没有 i++等于多少有意义。
+你想用来自 PayPal 来证明“权威”。楼上有个 openjdk 的 author 算不算另外一种“权威”
+
+---------------------------------------------------
+
+@qinxi 中文社区的人是不是都很喜欢偏题，然后讨论自己擅长的领域？
+
+我发这个贴是证明这道题权威？这道题一不是我出的，二不是我发明的，跟我有什么关系？
+
+明显 AI 模型回答不一样，看不出模型的区别吗？
+
+最后一句总结，中文社区讨论真的垃圾
+
+---------------------------------------------------
+
+@dtla 我的第一句话就是对你主题的讨论。
+后面是对评论的讨论。
+
+---------------------------------------------------
+
+@busterian 这不是提示的不好 是先有的大模型就解决不了这种问题😄，具体可以看 https://nicholas.carlini.com/writing/2024/evaluation_examples/index.html
+
+---------------------------------------------------
+
+@dtla 😂 还有一个简单的问题 你看 AI 能不能对  把这段代码 转换 c 
+
+def foo(x):
+    sum = 0
+    for i in range(x):
+        x += i
+        sum += x
+    return sum
+
+---------------------------------------------------
+
+@qinxi 如果这道题没有意义，为什么你问十遍 Google 模型得到的答案一样，问 gpt 4 答案也一样（和 Google 不一样），Google 模型和 3.5 答案一样
+
+这道题的意义就和“鲁迅与周树人是什么关系”一样。不要一上来就说没有意义，先自己思考一遍。
+
+---------------------------------------------------
+
+猴戏精彩！
+
+---------------------------------------------------
+
+AI 的回答取决于你怎么问。
+
+我：如何处理程序中的错误
+
+通义千问：程序中的错误处理是一个非常重要的环节，它可以帮助我们确保程序的稳定性和可靠性。以下是一些处理程序中错误的基本策略：
+
+异常处理：大多数编程语言都支持异常处理机制。在可能出现错误的代码块中使用 try-except 结构，当捕获到异常时，可以在 except 块中执行相应的错误处理代码，如记录日志、显示友好的错误信息、回滚事务等。
+
+例如，在 Python 中：
+
+Python
+try:
+    # 可能抛出异常的代码
+    x = 1 / 0
+except ZeroDivisionError as e:
+    print("发生错误：", str(e))
+预防性检查：在执行操作之前，对输入数据或系统状态进行验证，避免出现错误情况。例如，检查文件是否存在再打开，检查数组下标是否越界，检查用户输入是否合法等。
+
+错误码返回：对于函数或方法，可以采用返回错误码或者特殊值（如 None ）的方式来表示错误。调用者需要检查返回值来判断是否发生错误，并做相应处理。
+
+日志记录：无论是预防性的检查还是异常处理，都应该配合良好的日志记录，将错误信息详细记录下来，以便于后期排查问题。
+
+优雅降级：在可能的情况下，让程序在遇到错误时仍能以某种受限模式运行，而不是直接崩溃。
+
+单元测试和集成测试：通过编写测试用例来模拟各种边界条件和异常场景，提前发现并修复潜在的错误。
+
+资源清理：无论是否出现错误，都要确保及时释放已占用的系统资源，比如关闭文件、数据库连接等。
+
+合理设计错误层级：根据业务逻辑合理设计错误分类和层级，高级别的模块不需要关心底层的具体实现细节，只需处理自身业务相关的错误即可。
+
+以上这些策略并非孤立使用，而是需要结合实际情况灵活运用。
+
+---------------------------------------------------
+
+OP 这个帖子题目是使用了 [检测 AI 智商] 这样的很重力度的描述，但是正文是一道描述 [可能] 有歧义的 java 面试题（虽然说是引用某著名公司的题目，但是这里没有任何权威性和参考性）
+
+不同模型可能的回答不一样，因此就这样得出智商高低的结论明显不合理，模型的优劣起码行业有一套严谨的检测标准
+
+GPT4 或者其他模型输出 [OP 认为正确] 的答案是有多种原因的，提示词，训练数据，自我学习等等
+
+同理，如果使用其他某一个题目，得出了跟你正文中相反的现象，是不是又可以像 OP 这样下这样的结论？
+
+---------------------------------------------------
+
+你说的 error 指的是 Java 里的 java.lang.Error 类？
+
+不想抬杠，但我看回帖看到最后才隐隐约约意识到你说的是这个意思。
+
+语法在不影响交流情况下是没那么重要。ChatGPT 在大多数时候都能理解我的拼写错误。但就这个问题来说，如果我的理解正确，我觉得你最低限度应该把 Error 大写。
+
+回复对你不太友好，这点我同意。但你的帖子如果原样发 reddit ，也难免会有人指出同样的问题。
+
+---------------------------------------------------
+
+现阶段 AI 都没有意识，何来的智商？这比的只是哪个模型训练数据更完善，哪个模型对自然语言的处理更优异。
+
+---------------------------------------------------
+
+@yohole 你说的我赞同，但是经过我这几天的使用下来，我的确感觉这道题可以检测 ai 模型的好坏。因为我在测试之前就隐约感觉到哪个模型回答更符合我想要的答案。
+
+
+
+@xuanbg 
+@kneo 
+@zhilincom 
+至于这道题，error 的理解从人的角度一眼看过来，基本等同于 exception ，但是一个好的 AI 能够识别到问的是 java 特有的 error 类（因为前文已经说过了，这是一个 java interview 。如果一个 AI 能够识别这不是广义上的 error ，而是 java 特有的狭义的 error ，从另外一个角度也可以说明这个模型更符合预期（提示词相同，一遍的情况下）。
+
+---------------------------------------------------
+
+@xuanbg 单独回复一下你这一条。
+
+你说的没有错，但是 AI 判定有两个标准，一个是单词回复正确率，和提示后回复的正确率。在这道题上，因为前文已经明确暗示这是一个 java interview 的情景下，这个 error 自然问的是 java 特有的 error 类而非广义的 error 。
+
+即便各个模型在后续的提示能回答正确，但是单次就能正确的模型显然要比通过提示后正确的模型要更好。
+
+
+
+@qinxi  还想回复你一下的是，如果这道题真的毫无意义，那么各个 AI 不会在你使用提示词后而更改答案，并且这个更改后的答案几乎各大 AI 完全一致，也符合面试官的要求。这个要求是如何处理 java 出现的 error 类错误，而非广义上的 error 错误。
+
+---------------------------------------------------
+
+@Tabjy 你就回复了三次就把鸡鸡掏出来了，redhat 果然老印当道了，这非常 IBM
+
+---------------------------------------------------
+
+@wallriding 一看你就是没在美国工作过，当你看到满篇错误语法的烙印的 manager 给你的任务的时候，还想纠正语法错误，我只能说你闲得慌。就算白人也没几个纠结语法的，真够闲的。
+
+---------------------------------------------------
+
+op 这个测试感觉不是很严谨，因为少数时候 gemini 也能回答非 catch 版本，不过不觉得是语料库的不同导致的。
+
+---------------------------------------------------
+
+@CyrilYu 虽然不如“鲁迅和周树人”这个问题判断智商，但至少也能说明一些问题吧
+
+---------------------------------------------------
+
+@dtla 所以还是因为玩文字游戏导致候选人（ AI ）回答不符合你预期
+
+---------------------------------------------------
+
+从你的截图看，gpt4 也没理解你说的是 java 里 Error class 。它只是泛泛回答了出现错误该怎么办。你认为它回答的好也许只是幻觉。
+
+---------------------------------------------------
+
+@kneo 不然，你随便用这个问题放在 google 上面搜，搜出来都是 exception handle ，正确的做法就是 gpt 说出的答案，他明显识别了这是 error class 的 error ，否则大可以回答 try-catch 。error 不可恢复，只可以检查，这就是正确做法，而不是错觉。
+
+
+@qinxi 这不是文字游戏，这是一个经典的面试题，paypal 家只是把 exception 比较删除了（参见 Grokking The Java Developer Interview ）：
+
+Question 15: Difference between error and exception
+
+Answer: Error: Errors in a program are irrecoverable, they indicate that something severe has gone wrong in the application and the program gets terminated in case of error occurrence e.g. running out of memory: OutOfMemoryError, making too many recursive calls: StackOverﬂowError etc.
+
+---------------------------------------------------
+
+@kneo 前面回复，答案没有贴全
+
+
+Question 15: Difference between error and exception
+
+Answer: Error: Errors in a program are irrecoverable, they indicate that something severe has gone wrong in the application and the program gets terminated in case of error occurrence e.g. running out of memory: OutOfMemoryError, making too many recursive calls: StackOverﬂowError etc.
+
+Exception: Exceptions on the other hand are something that we can recover from by handling them properly e.g.: trying to access a property/method from a null object: NullPointerException, dividing an integer by zero: ArithmeticException etc.
+
+---------------------------------------------------
+
+😰这... 这... 这...
+
+“只有中国人才这么在意语法。”
+“我在美国十年了”
+“谁在乎 grammar ？跟印度人做过同事吗？”
+“也就你们在国内的人在乎”
+“中文论坛素质真的低。以后发 reddit 了。”
+
+---------------------------------------------------
+
+@badmotherfucker 不是我说，我翻下来也是这个感觉😰
+
+---------------------------------------------------
+
+@badmotherfucker 感谢你单独拧出来，希望让更多人看到，中文论坛讨论的素质有多低（不代表全体楼层）
+
+---------------------------------------------------
+
+冷知识：GPT 4 已经放弃中文语料库了，当你用中文问问题的时候，实际查询的是英文资料（说明过什么？逃....
+
+---------------------------------------------------
+
+@dtla 不同意。你的回复让我更坚信这就是你自己的幻觉。
+
+这就好像我问一个问题：开发中出现错误怎么办？
+
+回答：
+1. 阅读错误信息
+2. 找出错误原因
+3. 阅读文档
+4. 修正错误
+
+这算正确答案？这和 Java 有什么关系？这么答能过技术面试？
+
+反而是回答了 try catch 的，让我相信它觉得这里的 error 是 Java Runtime 系统中的 Error class 。
+
+真正有效的回答应该是什么样子？
+
+1. 如你所愿，明确阐述了 Error 和 Exception 的区别。
+2. 明确举出几种 Error 子类型，介绍一下分别是什么情况，如何处理。比如说 OOM 你需要调整 GC 相关参数对不？ NoClassDefFoundError 你需要检查依赖包或者生成的 class ？
+3. 在架构上如何处理 Error ，比如是否需要做日志，是否自动重启应用。
+
+但凡一个 AI 能够回答出以上三点中的一点，我就能认可它把 error 和 Error class 关联起来了。
+再看下你贴的 GPT 回答，我只能说，确实是幻觉。
+
+---------------------------------------------------
+
+@kneo 
+
+不多说了，0125 模型完美过，看图吧：
+
+![]( https://p.ipic.vip/xfd3x4.jpg)
+
+
+https://p.ipic.vip/xfd3x4.jpg
+
+---------------------------------------------------
+
+问：You should give me the interview answer directly, without explaining anything unless
+necessary. Your answers are expected to be directly used for a Java interview. Please be
+concise, but your answers should perfectly satisfy the interviewer.
+
+The question is: How do you deal with the error? should I use try-catch ？
+
+
+0125 模型答：
+
+In Java, it's generally recommended not to use try-catch blocks to handle Errors. Errors are
+used to indicate serious problems that applications should not attempt to catch, as they are
+often related to issues with the Java Virtual Machine or the hardware. Instead, focus should be
+on resolving the underlying problems causing these errors.
+
+---------------------------------------------------
+
+@dtla 这算啥？你原文可没写 should i use try catch 。
+
+---------------------------------------------------
+
+@kneo 加不加是一样的，加了只是会指出 try catch 的错误。不加也识别出 error 是 error ，exception 是 exception 了，我觉得这已经很有说服力了。
+
+---------------------------------------------------
+
+@kneo 因为原本问的是如何 handle error ，gpt 给出了 handle error 而非 handle exception 的方法。这个时候你加一句，能不能使用 try -catch ，gpt 说不能，我觉得这已经相当有说服力了吧。
+
+---------------------------------------------------
+
+@dtla 我的评估应该很清晰，三条中满足一条，就认为 AI 理解了你原文的“error”。
+
+你后来加了 try catch ，歧义消除 90%，我觉得大部分 AI 都能成功。结果显示 gpt4 能回答满足一。没问题。
+
+但是你原文可没加 try catch ，并且原文截图内容显示 gpt4 的回答不满足我提的三条要求中任意一条，我认为它明显失败了。但你至少在原文里依旧认为它做的很好。我认为是幻觉。
+
+---------------------------------------------------
+
+@kneo 很简单，经过我的测试，其余模型全部失败了，加上 try catch 也没用。这个能说明问题了吧，不信你可以去试试。
+
+其余模型回答：Yes, you should use try-catch!
+
+---------------------------------------------------
+
+官网的 chatgpt 没过测试啊，我这边显示还是"使用 try-catch"，难道 0125 模型独一党？有点不可置信
+
+---------------------------------------------------
+
+op 你确定你图片截图的没有上下文吗？这个问题你是对的，try catch 肯定不应该被使用，但是 0125 能识别这个问题我有点不信啊，你是不是有上下文联系？
+
+---------------------------------------------------
+
+@CyrilYu 没有上下文，经过我的测试，0125 模型 80%的情况也 fail 了，20%能识别出来。其余模型是 100% fail 。
+
+---------------------------------------------------
+
+现在看到了吧，前面说这道题无意义的人，真的是可笑。还有一个自称 openjdk 的 author ，回答应该是捕获 error ，真的是笑掉大牙了。
+
+---------------------------------------------------
+
+这能发展到语法对喷我没想到。。这里大多数都是撑死看个文档顶天的人，口语估计连个 how are you 都不会回答。
+你要是把中文内容放到翻译里来回翻一下，给人一种中文不熟练的感觉，评论就是另一种光景了。
+
+以前有看到某个视频下面的评论里，说作者口语有口音，不地道，然后被其他人指出作者本来就是母语者。莫名搞笑，也可悲。
+
+没必要鸡同鸭讲的。每天看看水深火热板块图一乐挺好的
+
+---------------------------------------------------
+
+不是，如果你强调的是 java.lang.Error 难道不应该至少大写 Error 吗？作为面试题，你把原题中与 java.lang.Exception 的比较删除，这就已经丢失了很多信息，作为一个人类我尚且不能给出一个直接的回答，指望 ChatGPT 就有点困难了。
+
+此外 Error 是否建议捕获要看场景。如果我加一个读取大文件的前提呢？还不建议捕获 Error 吗？
+
+---------------------------------------------------
+
+@iseki 你说的大致没错，但是 0125 模型已经给出完美的答案了。
+
+本帖没有讨论 java ，讨论的是 ai 模型的强弱。你都没有看出来的事情，AI 有的看出来了，有的没看出来，不正是可以说明 AI 的强弱吗？
+
+---------------------------------------------------
+
+@iseki 另外，在 Grokking 这本书上面，error 是小写不是大写，
+
+---------------------------------------------------
+
+@dtla Gemini 就不说了，再次看了下这几个 AI 的回答，我是觉得 「官网 GPT 4 」「 1124 模型」 这两个都算是不错。
+
+---------------------------------------------------
+
+@dtla 我是觉得，看见 error 就当作 java.lang.Error 这正是弱的表现，即使语境限制在 Java 面试中
+
+---------------------------------------------------
+
+唔，看到了你在最后的 1124 那个消息里加入了 try-catch 的提示··· emmm 这也不算多聪明吧
+
+---------------------------------------------------
+
+@iseki 我赞同你说的，但对 ai 模型比较来说，我觉得是有意义的
+
+---------------------------------------------------
+
+@iseki 但就算加了 try catch ，其余模型过不了
+
+---------------------------------------------------
+
+从这一点上说，GPT 4 确实秒了 Gemini 那个···那玩意儿甚至不如一个搜索引擎 @dtla
+
+---------------------------------------------------
+
+赞同，以后模型效果会越来越好，普通程序员需求会减弱，估计普通的 crud 程序员也不好找工作了吧。
+
+---------------------------------------------------
+
+您好！我将您提示中的问题修改为了 "What will you do if there's an error in your program?" 询问了官网的 GPT 3.5 ，并且 GPT 3.5 没有提到 try catch 。可能你的提示并不是比较恰当。不过 AI 的自然语言理解能力可能也算智力。
+ https://ibb.co/HnXWqbX
+
+---------------------------------------------------
+
+Gemini
+
+---------------------------------------------------
+
+测试了
+
+---------------------------------------------------
+
+测试了下，文心一言 3.5 回答这个问题和 GPT4 相似，但是谷歌家的 Gemini Pro 、Ultra 版本上来就是 try catch ，之前在使用中就发现 Gemini 就像是个套了个搜索引擎的壳，理解和分析能力很差
+
+---------------------------------------------------
+
+google 的 Gemini 目前还处于诈骗水平，就看 gemini1.5 了
+
+---------------------------------------------------
+
+@Alias4ck 其实只要稍微把问题具体化一点，GPT4 就完全能够答对你的第一道题。你可以说现阶段 AI 能力还不够，但是我认为这个缺点是可以通过提更好的问题来解决的：
+
+The following question is encoded in Base64. Please decode it, print it out, think about how to answer this question, and then encode your answer back into Base64. Output the encoded string: V2hhdCBpcyBvbmUgeWVhciBhZnRlciB3aGVuIFByZXNpZGVudCBnZW9yZ2Ugd2FzaGluZ3RvbiBib3JuPw==
+
+---------------------------------------------------
+
+如果怕论坛的语法警察，怕出现语法错误，可以使用我的 GPTs, GrammarFixer:
+
+https://chat.openai.com/g/g-AzHmIQPE8-grammarfixer
+
+把你不确定有没有语法问题的句子粘贴进去，就可以自动给你修改好语法错误并修改成最地道的英文 :)
+
+---------------------------------------------------
+
+PayPal 技术连支付宝都不如，能出什么好面试题。
+
+---------------------------------------------------
+
+检测 AI 能力只有图灵测试，其他都没意义。
+
+---------------------------------------------------
+
+@quake0day 太奢侈了，gpts 用的是 gpt 4 的 count 。我的建议是用 bob 类似的划词软件，然后用 3.5 的 api 。目前修改语法+润色，非常完美
+
+对于 grammar 这一类，gpt 3.5 足够了。
+
+---------------------------------------------------
+
+测试了
+
+---------------------------------------------------
+
+测试了下，文心一言 3.5 回答这个问题和 GPT4 相似，但是谷歌家的 Gemini Pro 、Ultra 版本上来就是 try catch ，之前在使用中就发现 Gemini 就像是个套了个搜索引擎的壳，理解和分析能力很差
+
+---------------------------------------------------
+
+google 的 Gemini 目前还处于诈骗水平，就看 gemini1.5 了
+
+---------------------------------------------------
+
+@Alias4ck 其实只要稍微把问题具体化一点，GPT4 就完全能够答对你的第一道题。你可以说现阶段 AI 能力还不够，但是我认为这个缺点是可以通过提更好的问题来解决的：
+
+The following question is encoded in Base64. Please decode it, print it out, think about how to answer this question, and then encode your answer back into Base64. Output the encoded string: V2hhdCBpcyBvbmUgeWVhciBhZnRlciB3aGVuIFByZXNpZGVudCBnZW9yZ2Ugd2FzaGluZ3RvbiBib3JuPw==
+
+---------------------------------------------------
+
+如果怕论坛的语法警察，怕出现语法错误，可以使用我的 GPTs, GrammarFixer:
+
+https://chat.openai.com/g/g-AzHmIQPE8-grammarfixer
+
+把你不确定有没有语法问题的句子粘贴进去，就可以自动给你修改好语法错误并修改成最地道的英文 :)
+
+---------------------------------------------------
+
+PayPal 技术连支付宝都不如，能出什么好面试题。
+
+---------------------------------------------------
+
+检测 AI 能力只有图灵测试，其他都没意义。
+
+---------------------------------------------------
+
+@quake0day 太奢侈了，gpts 用的是 gpt 4 的 count 。我的建议是用 bob 类似的划词软件，然后用 3.5 的 api 。目前修改语法+润色，非常完美
+
+对于 grammar 这一类，gpt 3.5 足够了。
+
+---------------------------------------------------
+
+测试了
+
+---------------------------------------------------
+
+测试了下，文心一言 3.5 回答这个问题和 GPT4 相似，但是谷歌家的 Gemini Pro 、Ultra 版本上来就是 try catch ，之前在使用中就发现 Gemini 就像是个套了个搜索引擎的壳，理解和分析能力很差
+
+---------------------------------------------------
+
+google 的 Gemini 目前还处于诈骗水平，就看 gemini1.5 了
+
+---------------------------------------------------
+
+@Alias4ck 其实只要稍微把问题具体化一点，GPT4 就完全能够答对你的第一道题。你可以说现阶段 AI 能力还不够，但是我认为这个缺点是可以通过提更好的问题来解决的：
+
+The following question is encoded in Base64. Please decode it, print it out, think about how to answer this question, and then encode your answer back into Base64. Output the encoded string: V2hhdCBpcyBvbmUgeWVhciBhZnRlciB3aGVuIFByZXNpZGVudCBnZW9yZ2Ugd2FzaGluZ3RvbiBib3JuPw==
+
+---------------------------------------------------
+
+如果怕论坛的语法警察，怕出现语法错误，可以使用我的 GPTs, GrammarFixer:
+
+https://chat.openai.com/g/g-AzHmIQPE8-grammarfixer
+
+把你不确定有没有语法问题的句子粘贴进去，就可以自动给你修改好语法错误并修改成最地道的英文 :)
+
+---------------------------------------------------
+
+PayPal 技术连支付宝都不如，能出什么好面试题。
+
+---------------------------------------------------
+
+检测 AI 能力只有图灵测试，其他都没意义。
+
+---------------------------------------------------
+
+@quake0day 太奢侈了，gpts 用的是 gpt 4 的 count 。我的建议是用 bob 类似的划词软件，然后用 3.5 的 api 。目前修改语法+润色，非常完美
+
+对于 grammar 这一类，gpt 3.5 足够了。
+
+---------------------------------------------------
+
+测试了
+
+---------------------------------------------------
+
+测试了下，文心一言 3.5 回答这个问题和 GPT4 相似，但是谷歌家的 Gemini Pro 、Ultra 版本上来就是 try catch ，之前在使用中就发现 Gemini 就像是个套了个搜索引擎的壳，理解和分析能力很差
+
+---------------------------------------------------
+
+google 的 Gemini 目前还处于诈骗水平，就看 gemini1.5 了
+
+---------------------------------------------------
+
+@Alias4ck 其实只要稍微把问题具体化一点，GPT4 就完全能够答对你的第一道题。你可以说现阶段 AI 能力还不够，但是我认为这个缺点是可以通过提更好的问题来解决的：
+
+The following question is encoded in Base64. Please decode it, print it out, think about how to answer this question, and then encode your answer back into Base64. Output the encoded string: V2hhdCBpcyBvbmUgeWVhciBhZnRlciB3aGVuIFByZXNpZGVudCBnZW9yZ2Ugd2FzaGluZ3RvbiBib3JuPw==
+
+---------------------------------------------------
+
+如果怕论坛的语法警察，怕出现语法错误，可以使用我的 GPTs, GrammarFixer:
+
+https://chat.openai.com/g/g-AzHmIQPE8-grammarfixer
+
+把你不确定有没有语法问题的句子粘贴进去，就可以自动给你修改好语法错误并修改成最地道的英文 :)
+
+---------------------------------------------------
+
+PayPal 技术连支付宝都不如，能出什么好面试题。
+
+---------------------------------------------------
+
+检测 AI 能力只有图灵测试，其他都没意义。
+
+---------------------------------------------------
+
+@quake0day 太奢侈了，gpts 用的是 gpt 4 的 count 。我的建议是用 bob 类似的划词软件，然后用 3.5 的 api 。目前修改语法+润色，非常完美
+
+对于 grammar 这一类，gpt 3.5 足够了。
+
+---------------------------------------------------
+
+测试了
+
+---------------------------------------------------
+
+测试了下，文心一言 3.5 回答这个问题和 GPT4 相似，但是谷歌家的 Gemini Pro 、Ultra 版本上来就是 try catch ，之前在使用中就发现 Gemini 就像是个套了个搜索引擎的壳，理解和分析能力很差
+
+---------------------------------------------------
+
+google 的 Gemini 目前还处于诈骗水平，就看 gemini1.5 了
+
+---------------------------------------------------
+
+@Alias4ck 其实只要稍微把问题具体化一点，GPT4 就完全能够答对你的第一道题。你可以说现阶段 AI 能力还不够，但是我认为这个缺点是可以通过提更好的问题来解决的：
+
+The following question is encoded in Base64. Please decode it, print it out, think about how to answer this question, and then encode your answer back into Base64. Output the encoded string: V2hhdCBpcyBvbmUgeWVhciBhZnRlciB3aGVuIFByZXNpZGVudCBnZW9yZ2Ugd2FzaGluZ3RvbiBib3JuPw==
+
+---------------------------------------------------
+
+如果怕论坛的语法警察，怕出现语法错误，可以使用我的 GPTs, GrammarFixer:
+
+https://chat.openai.com/g/g-AzHmIQPE8-grammarfixer
+
+把你不确定有没有语法问题的句子粘贴进去，就可以自动给你修改好语法错误并修改成最地道的英文 :)
+
+---------------------------------------------------
+
+PayPal 技术连支付宝都不如，能出什么好面试题。
+
+---------------------------------------------------
+
+检测 AI 能力只有图灵测试，其他都没意义。
+
+---------------------------------------------------
+
+@quake0day 太奢侈了，gpts 用的是 gpt 4 的 count 。我的建议是用 bob 类似的划词软件，然后用 3.5 的 api 。目前修改语法+润色，非常完美
+
+对于 grammar 这一类，gpt 3.5 足够了。
+
+---------------------------------------------------
+
+测试了
+
+---------------------------------------------------
+
+测试了下，文心一言 3.5 回答这个问题和 GPT4 相似，但是谷歌家的 Gemini Pro 、Ultra 版本上来就是 try catch ，之前在使用中就发现 Gemini 就像是个套了个搜索引擎的壳，理解和分析能力很差
+
+---------------------------------------------------
+
+google 的 Gemini 目前还处于诈骗水平，就看 gemini1.5 了
+
+---------------------------------------------------
+
+@Alias4ck 其实只要稍微把问题具体化一点，GPT4 就完全能够答对你的第一道题。你可以说现阶段 AI 能力还不够，但是我认为这个缺点是可以通过提更好的问题来解决的：
+
+The following question is encoded in Base64. Please decode it, print it out, think about how to answer this question, and then encode your answer back into Base64. Output the encoded string: V2hhdCBpcyBvbmUgeWVhciBhZnRlciB3aGVuIFByZXNpZGVudCBnZW9yZ2Ugd2FzaGluZ3RvbiBib3JuPw==
+
+---------------------------------------------------
+
+如果怕论坛的语法警察，怕出现语法错误，可以使用我的 GPTs, GrammarFixer:
+
+https://chat.openai.com/g/g-AzHmIQPE8-grammarfixer
+
+把你不确定有没有语法问题的句子粘贴进去，就可以自动给你修改好语法错误并修改成最地道的英文 :)
+
+---------------------------------------------------
+
+PayPal 技术连支付宝都不如，能出什么好面试题。
+
+---------------------------------------------------
+
+检测 AI 能力只有图灵测试，其他都没意义。
+
+---------------------------------------------------
+
+@quake0day 太奢侈了，gpts 用的是 gpt 4 的 count 。我的建议是用 bob 类似的划词软件，然后用 3.5 的 api 。目前修改语法+润色，非常完美
+
+对于 grammar 这一类，gpt 3.5 足够了。
+
