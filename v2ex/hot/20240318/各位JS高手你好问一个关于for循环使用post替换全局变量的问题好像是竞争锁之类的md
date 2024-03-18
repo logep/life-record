@@ -1,0 +1,1566 @@
+### 各位 JS 高手你好，问一个关于 for 循环使用$.post 替换全局变量的问题，好像是竞争锁之类的
+
+各位 JS 高手你好，问一个关于 for 循环使用$.post 替换全局变量的问题，好像是竞争锁之类的。
+```
+var allimg = 获取到的图片数组;
+var oldcontent = 原内容;
+for(var i=0; i<allimg.length; i++){
+    $.post('url', 参数, function(ret) {
+        if(ret['code'] == 200) {
+             oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+        }else{
+             console.log(错误信息);
+        }
+    }, 'json');
+}
+```
+这样有一个很大的问题：多个异步去修改同一全局变量，必须要锁定全局变量 oldcontent ，不然只有最后 i 循环 修改 oldcontent 生效。
+请高手支招？
+
+---------------------------------------------------
+
+锁？
+
+---------------------------------------------------
+
+经典闭包问题
+
+---------------------------------------------------
+
+没看懂你这段代码是要干啥？通过旧数组获取新数组吗？如果是作用域问题的话，用 let 替换 var i=0 中 var 。搜索关键词“块级作用域”。https://juejin.cn/post/6844903951351939080?searchId=202403181050254A1BA64DD54934892197
+
+---------------------------------------------------
+
+@wu67 正解
+
+---------------------------------------------------
+
+说说需求是啥
+
+---------------------------------------------------
+
+没那么复杂，加下标即可
+```
+var oldcontent = allimg.map(item => {return item.url})
+...
+if (ret['code'] === 200) {
+  oldcontent[i].replace(ret['oldimgurl'],ret['newimgurl'])
+}
+
+```
+
+---------------------------------------------------
+
+闭包的经典应用场景之一
+
+---------------------------------------------------
+
+首先，$.post 明显是异步请求，那么肯定会出现最后一个返回的内容，覆盖前面的内容。所以你有 2 种解决办法：1 、Promise.all 获取所以返回结果再修改，2 、使用 async/await 转为同步处理
+
+---------------------------------------------------
+
+楼上都没看懂他的问题我来简单整理回答一下
+
+```
+// 这应该是是一个数组
+var allimg = []
+
+// 这应该是是一个字符串类型
+var oldcontent ="";
+
+// 循环上面的数组进行批量调用请求
+for(var i=0; i<allimg.length; i++){
+   // 这里我猜用的是 jquery 的 post 方法, 是一个异步回调
+  $.post('url', 参数, function(ret) {
+    if(ret['code'] == 200) {
+       oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    }else{
+       console.log(错误信息);
+    }
+  }, 'json');
+}
+```
+
+楼主问, 为啥在调用
+
+```
+oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+```
+
+这个方法的时候, 获取的是上一次循环的内容了. 
+
+
+以下请各位 JS 高手帮忙解决以下.
+
+---------------------------------------------------
+
+我发消息的时候 7l 和 8l 还不在, 7l, 8l 是正确答案
+
+---------------------------------------------------
+
+@nitmali  使用场景是这样的。
+
+oldcontent="我是文章内容，里面有多个远程图片，如<img src='https://www.baidu.com/s/abc.jpg'> <img src='https://www.csdn.com/s/123.jpg'> <img src='https://www.jd.com/s/mn.jpg'>，甚至有些文章内容的图片会更多，现在的需求就是将这些文章内容中的图片进行本地化。替换掉文章内容远程图片，最后入库”。
+
+
+var allimg = ['https://www.baidu.com/s/abc.jpg', 'https://www.csdn.com/s/123.jpg', 'https://www.jd.com/s/mn.jpg'];
+
+
+$.post 是异步，如何在循环的异步中替换掉 oldcontent 呢？
+
+@zzxqd   var oldcontent = allimg.map(item => {return item.url}) ，这一句什么意思呢？
+
+
+各位，我 JS 水平不高，就会用一个 jquery 。
+
+---------------------------------------------------
+
+@webszy  1 、Promise.all 获取所以返回结果再修改，2 、使用 async/await 转为同步处理
+
+我去看看 Promise.all ，同步会卡浏览器，现在就是用的这种方法，图片少了还好，图片一多。这个浏览器什么也干不了。
+
+---------------------------------------------------
+
+我不懂你的意思 你每次循环都修改了 oldcontent 那么循环结束一定是最后一次循环赋的值生效啊 这有问题吗？  
+你代码和你的问的就好像是 
+a = 1
+a = 2
+a = 3
+a = 6
+为什么 a = 6 ？？
+并且你也没用说清楚你到底是在哪里使用的 oldcontent  如果是在循环结束的话 那么 oldcontent  应该等于 原内容
+那么如果你等待了全部的请求结束 那就是上面的问题啊 a 就应该等于 6
+
+---------------------------------------------------
+
+@abccccabc 哥们你直接留个联系方式把, 我远程帮你解决把, 我真的看不下去
+
+---------------------------------------------------
+
+@abccccabc 图片多也不一定啊 promise.all 你可以在外层再做一层并发控制就好了 限制最大并发量然后后续等待
+
+---------------------------------------------------
+
+@qrobot  你说对了。估计你早有解决方案了
+
+---------------------------------------------------
+
+你的循环代码，i 在哪里用的？如果你用了类似 allimg[i]，那就是 3 楼说的块级作用域问题，改 var 为 let 应该就行。
+
+---------------------------------------------------
+
+var 换 let
+
+---------------------------------------------------
+
+var allimg = 获取到的图片数组;
+var oldcontent = 原内容;
+
+// 将每个异步操作转换为 Promise
+var promises = allimg.map(function(img) {
+    return new Promise(function(resolve, reject) {
+        $.post('url', 参数, function(ret) {
+            if (ret['code'] == 200) {
+                resolve({oldimgurl: ret['oldimgurl'], newimgurl: ret['newimgurl']}); // 成功时解析新旧 URL
+            } else {
+                reject(错误信息);
+            }
+        }, 'json');
+    });
+});
+
+// 等待所有 Promise 完成
+Promise.all(promises).then(function(results) {
+    // 此处的 results 是一个包含所有成功替换 URL 信息的数组
+    results.forEach(function(result) {
+        oldcontent = oldcontent.replace(result.oldimgurl, result.newimgurl);
+    });
+}).catch(function(error) {
+    console.log(error); // 处理任何一个请求失败的情况
+});
+
+---------------------------------------------------
+
+@abccccabc 那要按你这么说的话，其实不用考虑那么多，你现在的应该就满足了
+
+---------------------------------------------------
+
+给定一个长字符串 oldContents 和一个数组 allImg[]。oldContents 中包含一些图片地址，数组中的每一项为一个需要替换的图片地址字符串。使用 post 请求发送需要替换的图片地址，会返回替换后的图片地址。
+现在需要将 oldContents 中出现的每一个 allImg[]中的图片地址都替换为新的地址。
+
+---------------------------------------------------
+
+要替换 `oldContents` 中的图片地址，您可以使用以下 JavaScript 代码作为参考。这段代码假设您已经有了一个函数 `replaceImageUrl`，它会发送 POST 请求并返回新的图片地址。
+
+```javascript
+async function replaceAllImages(oldContents, allImg) {
+  // 使用 map 函数异步替换所有图片地址
+  const replacePromises = allImg.map(async (img) => {
+    const newImg = await replaceImageUrl(img); // 假设这个函数发送 POST 请求并返回新地址
+    oldContents = oldContents.replace(img, newImg); // 替换图片地址
+  });
+
+  // 等待所有图片地址替换完成
+  await Promise.all(replacePromises);
+
+  // 返回替换后的内容
+  return oldContents;
+}
+
+// 假设的 replaceImageUrl 函数，您需要根据实际情况实现它
+async function replaceImageUrl(url) {
+  // 发送 POST 请求并获取新的图片地址
+  // 这里需要您根据实际的 API 接口来实现
+  const response = await fetch('您的 API 端点', {
+    method: 'POST',
+    body: JSON.stringify({ imageUrl: url }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const data = await response.json();
+  return data.newImageUrl; // 假设返回的数据中包含新的图片地址
+}
+```
+
+请确保您的服务器端点能够处理 POST 请求，并且返回所需的新图片地址。您可能需要根据您的具体 API 和返回的数据格式调整 `replaceImageUrl` 函数的实现细节。如果您需要进一步的帮助，请告诉我！
+
+---------------------------------------------------
+
+@cheese   谢谢。
+
+代码正在改造中
+
+---------------------------------------------------
+
+JS 单线程➕事件循环，绝大部分情况下不会出现竞态条件，因为
+1. 同一时刻只有一个任务在运行
+2. 任务交出 CPU 的时机可控
+
+如果还是出现了竞态条件，也不应该用锁 因为锁抢走了事件循环对线程的控制权
+
+我在用和 JS 一样单线程➕事件循环的 dart 时也遇到过类似问题，使 dart 提供的 Compeleter 即可
+
+---------------------------------------------------
+
+@zzxqd 你在循环外部定义的 content, 每次 replace 时的值都是当前最新的值，只是顺序不可控而已，你要想等所有请求结束后，去使用这个 content 的话，定义一个计数器 var reqCount = allimg.length 也就是你请求中的数量，每次请求完成（成功或者失败后），
+reqCount -= 1
+if (reqCount === 0) {
+console.log(content)
+}
+
+---------------------------------------------------
+
+var i 改为 let i
+
+---------------------------------------------------
+
+首先，js 是单线程的，不会存在竞争锁之类的东西
+
+---------------------------------------------------
+
+改同步， 不用异步， 用 woker 后台下。
+
+---------------------------------------------------
+
+@qrobot 不太理解为啥是闭包
+
+---------------------------------------------------
+
+@Plumbiu 这个和闭包关系也不是很大, 准确来说是异步回调和闭包组合起来产生的问题, 你让她把 $.post 改成阻塞的代码逻辑就是正常的.
+
+---------------------------------------------------
+
+@Plumbiu 我写代码很多年以前就不会这么写了.
+
+例如
+
+ 
+```
+[].forEach(async(ele) =>  await asyncFunction(ele)) 
+```
+
+类似这中在循环中调用方法的. 虽然逻辑是对的,但是却没有很好使用 async/await, 实际上是把异步任务转换成为同步任务. 并不是并发执行的任务, 而是同步执行的任务. 性能上差很多
+
+---------------------------------------------------
+
+我的理解是，var 不存在块级作用域，如果 oldcontent 写在 for 循环内部，那么就相当于创建了很多次 oldcontent ，就像下面这样
+
+```js
+for (var i = 0; i < 100; i++) {
+   var a = 200
+   a = a - i
+}
+// 等同于
+var a;
+// 第一次循环
+a = 200
+a = a - 0
+// 第二次循环
+a = 200
+a = a - 1
+// ....
+// 第一百次循环
+a = 200
+a = a - 99
+```
+
+所以只有最后一次生效了
+
+---------------------------------------------------
+
+@qrobot forEach 不能用 async/await 的，我的理解就是作用域问题，看我上一个回答
+
+---------------------------------------------------
+
+一个锁的事情
+
+---------------------------------------------------
+
+再三确认没看到哪里用了 i
+
+---------------------------------------------------
+
+```
+;(async()=>{
+    let allimg = 获取到的图片数组
+    let oldcontent = 原内容
+    for (var i = 0; i < allimg.length; i++) {
+        let ret = await $.post(
+            'url',
+            参数,
+            'json'
+        )
+                if (ret['code'] == 200) {
+                    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl'])
+                } else {
+                    console.log(错误信息)
+                }
+            
+    }
+})()
+```
+我示意的写一下，给你的代码的几个只有好处没有坏处的建议
+把所有的 var 替换成 let ；所有函数替换成箭头函数；使用 promise 风格的请求库，都什么年代了不要用回调函数风格的方法了
+
+---------------------------------------------------
+
+@Plumbiu 并不是, 你第一个代码的含义其实是这个
+
+```
+let a
+
+for (var i = 0; i < 100; i++) {
+ a = 200 - i
+}
+
+```
+
+forEach 不能用 async/await 的原因不是因为闭包问题
+
+---------------------------------------------------
+
+```
+;(async()=>{
+let allimg = 获取到的图片数组
+let oldcontent = 原内容
+for (let i = 0; i < allimg.length; i++) {
+let ret = await $.post(
+'url',
+参数,
+'json'
+)
+if (ret['code'] == 200) {
+oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl'])
+} else {
+console.log(错误信息)
+}
+
+}
+})()
+```
+
+for 循环中的 var 忘记改了。for 后的临时变量赋值千万不能用 var
+
+---------------------------------------------------
+
+循环内部改造成函数调用就行了.....
+`
+var allimg = 获取到的图片数组;
+var oldcontent = 原内容;
+for(var i=0; i<allimg.length; i++){  
+  var url = allimg[i]
+  doReplace(url); // 函数调用传值作用域会改变
+}
+function doReplace(url){
+  $.post('url', 参数, function(ret) {
+    if(ret['code'] == 200) {
+      oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    }else{
+      console.log(错误信息);
+    }
+  }, 'json');
+}
+
+`
+
+---------------------------------------------------
+
+@Plumbiu  按照他的代码执行下去,那么就应该是 
+
+```
+let a = ''
+
+for (let i = 0; i < 100; i++) {
+// 每次都会生效
+a = a.replace(`${i}`, `test-${i}`)
+}
+
+
+```
+
+---------------------------------------------------
+
+js 笔试必背八股文
+
+---------------------------------------------------
+
+@qrobot 效果都一样吧，我感觉楼主应该是想将一个文本中的图片地址替换成另外一个地址，这个最开始做不就应该写在循环外？没搞清楚楼主的做法
+
+---------------------------------------------------
+
+@Plumbiu  他的问题是这个问题
+
+for (var i = 0; i < 100; i += 1) {
+    setTimeout(() => { console.log(i) }, 0)
+}
+
+为什么 console.log 中的 i 不对
+
+---------------------------------------------------
+
+@qrobot 但是你 debugger 每次调试的时候都是正确的. 运行起来就不对了. 这个问题就有意思了.
+
+---------------------------------------------------
+
+@Plumbiu 答案我就不公布了, 有兴趣可以自己研究一下为什么
+
+---------------------------------------------------
+
+@qrobot 类似的啊，var 没有块级作用域，你这个代码就会等同于：
+
+```js
+var i
+
+// 同步任务
+i = 0 -> 定时器等待打印 i
+i = 1 -> 定时器等待打印 i
+// ...
+i = 100
+
+// 异步任务
+console.log(i) // i 为 100 ，打印 100 次
+```
+
+如果 var 改为 let
+
+```js
+// 同步任务
+{ let i = 0;  } -> 定时器等待打印 i
+{ let i = 1;  } -> 定时器等待打印 i
+// ...
+{ let i = 100; }
+// 异步任务（在每个块级作用域执行）
+{ console.log(i); } // i = 0
+{ console.log(i); } // i = 1
+```
+
+---------------------------------------------------
+
+@Plumbiu 那你现在理解吗? 为啥是闭包问题, 你看你的 29l 回答. 其实不是闭包问题, 而是闭包 + 异步回调导致的
+
+---------------------------------------------------
+
+console.log(1)
+setTimeout(() => console.log(2))
+console.log(3)
+
+输出结果顺序是 1,3,2 为什么? 
+
+你在把这个问题回答上来, 基本上 ecmascript 就没啥大问题了, 其实这两个都是 ecmascript 的基本问题, 一个是异步,一个是闭包
+
+---------------------------------------------------
+
+你把你这段代码理解为 同时发出去 N 个请求, 然后每个请求成功了之后 就立刻去替换了你目标内容
+
+自己想想这回造成什么混乱 不就清楚了吗~
+
+---------------------------------------------------
+
+@qrobot  是有闭包出现，但是主要的问题还是作用域吧，不是闭包出现了问题
+
+---------------------------------------------------
+
+没用到 i 不存在 let var 的问题啊。
+
+---------------------------------------------------
+
+@Plumbiu 异步执行, 完成的结果是具有不确定性的. 数据什么时候返回, 什么时候执行代码, 都是由 post 接口执行的时间来决定的. 本来其实也没什么问题, 但是他又使用了一个闭包, 访问外部的环境, 但是外部的环境会根据返回的结果进行改变. 
+
+var i = 0
+
+// 五秒后 i = 1
+// 六秒后 i = 2
+
+那么 i = 1, i = 2
+
+如果结果返回的时间变化了 
+
+
+// 五秒后 i = 2
+// 六秒后 i = 1
+
+那么 i = 2, i = 1
+
+内部闭包改变了外部变量, 自然不会按照 for 循环的次数进行改变, 而是按照 callback 回调的时间进行改变. 
+
+我才说是 闭包 + 异步回调才会有这个问题.
+
+---------------------------------------------------
+
+```
+// 但是他又使用了一个闭包, 访问外部的环境, 但是外部的环境会根据返回的结果进行改变.
+oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+```
+
+这里就是 访问外部的变量, 但是外部的变量会根据返回的结果发生改变. 所以这里获得数据就会产生变化.不会按照逻辑走
+
+---------------------------------------------------
+
+@qrobot 异步执行只有并行情况下结果才不确定吧，楼主都是依次调用 post 接口，按理来说异步队列里面也是依次执行的
+
+---------------------------------------------------
+
+@Plumbiu 如果用了计时器，定的时间不同另算
+
+---------------------------------------------------
+
+@Plumbiu 你怎么保证 XMLHttpRequest 执行依次调用 post 接口是依次执行的?
+
+---------------------------------------------------
+
+@Plumbiu 就算不算 XMLHttpRequest, 连 setTimeout 都不保证依次执行
+
+---------------------------------------------------
+
+我猜啊 有没有一种可能 js 是单线程没有后端预判「锁」的困扰
+
+---------------------------------------------------
+
+@qrobot 哥你看一下 js 中的异步队列
+
+---------------------------------------------------
+
+@Plumbiu  看了一些 w3c 的规定, 任务队列中规定了执行顺序. 这一点我搞错了, 我一直以为是按照浏览器对任务队列的实现来说, 没有规定任务队列的顺序
+
+---------------------------------------------------
+
+@Plumbiu ecmascript 只是把任务交给浏览器去执行, 但是未必固定了任务是有序的, 和浏览器的实现有关, 虽然 w3c 固定了任务序列. 但是实际上执行上是有差异的. 例如 edge 的节能模式下 setTimeout 执行上就存在问题
+
+---------------------------------------------------
+
+@qrobot 我也有点不确定啊，感觉如果是两个请求在队列里，前面不知道会不会存在队头阻塞的情况，应该是你说的对，post 接口返回的时间不一样，可能执行顺序不同
+
+---------------------------------------------------
+
+看起来是 replace 的问题？
+
+1. 对比每次 repalce 前后的 oldcontent
+2. 查看回调的 ret 值
+
+---------------------------------------------------
+
+@Plumbiu  不说 XMLHttpRequest 这点时间不同执行顺序不同, 都不用考虑, 但是异步任务中 js 的异步队列中并不是按照 按照顺序执行的. 据我所知的在 edge 和 chome 上都有不同的差异, 在 firefox 上也有差异, 你不能信任 ecmascript 的异步队列.
+
+---------------------------------------------------
+
+@Plumbiu 以前我验证过 setTimeout 在部分情况下会直接被优化, 包括 setInterval 优化的策略根据浏览器的版本也有所区别. 和 w3c 规定不太一样
+
+---------------------------------------------------
+
+首先这段代码会把所有同步部先执行一遍，所有的 $.post 都会第一时间执行，然后根据 $.post 请求的返回时间依次调用 callback 也就是说尽管 oldcontent 会经历多次修改，最终结果还是由最后返回的 $.post 请求结果决定
+
+---------------------------------------------------
+
+没眼看
+
+---------------------------------------------------
+
+你问题里的代码没有问题啊, oldContent 最终都会被正确替换呀。
+有问题的是 for 循环的 var i ，但是你代码里也没有使用，除非你隐藏了和索引 i 相关的代码。
+```
+var str = "Hello ";
+for (var i = 0; i < 5; i++) {
+    wait().then(() => {
+        str = str + "i";
+        console.log("index: ", i, "str: ", str);
+    });
+}
+async function wait() {
+    return new Promise((resolve) => {
+        const time = Math.floor(Math.random() * 100 + 100);
+        setTimeout(resolve, time);
+    });
+}
+```
+这段代码和你的基本一样，输出是这样的:
+```
+index:  5 str:  Hello i
+index:  5 str:  Hello ii
+index:  5 str:  Hello iii
+index:  5 str:  Hello iiii
+index:  5 str:  Hello iiiii
+```
+也就是说 var i 类似全局变量
+
+如果把 var i 换成 let i ，输出是这样的:
+```
+index:  1 str:  Hello i
+index:  4 str:  Hello ii
+index:  2 str:  Hello iii
+index:  0 str:  Hello iiii
+index:  3 str:  Hello iiiii
+```
+每次 post 完成后的回调都能正确获得自己的索引。
+
+---------------------------------------------------
+
+@abccccabc 空白太久的问题，不如通过 promise.all full resolved 之前给全页面加个 loading 来解决
+
+---------------------------------------------------
+
+和锁没关系, JS 是单线程的, 代码中的 oldcontent 在所有请求完成后也一定是对的 ( 当然你没有用 replaceAll, 在有重复 url 时会有问题 )
+
+你的问题不是 oldcontent 没生效, 而是 oldcontent 在异步变更后你的 html 没有同步更新才对
+
+解决的办法
+ - 用现成框架, vue / mobx 的响应式, oldcontent 变更后自动重新渲染到 html
+ - 每次请求完成后, 主动更新一次 oldcontent 到 html
+
+---------------------------------------------------
+
+这是 JS 最大特点，异步调用不会阻塞同步代码运行，等异步调用完成后代码运行切换到 callback 上，这是你的 oldcontent 被赋值，由于异步调用不可预测性，你无法知道哪次调用是最后结束的，也是说你的 oldcontent 最后结果是随机的。
+解决方案：
+1. 使用 promise 或 async/await 。
+2. callback 方式可使用 async 库, https://github.com/caolan/async
+
+---------------------------------------------------
+
+遗漏，
+3. 利用闭包
+
+---------------------------------------------------
+
+我的天呐，高手们这么热情。
+
+写了两遍实现。太浪费时间了。
+
+@ming159   39L 这个太简单了，早点看到这个就好了。一直在想着因为异步导致的问题，结果把大家都带偏了。
+
+已经实现了，谢谢各位
+
+---------------------------------------------------
+
+有个问题我觉得挺奇怪的，为啥有些高手盯着变量 i 呢？
+我原有代码(doReplace 函数里的代码写在 for 循环内)和 39L 的基本一模一样。他只是提取$.post 到 doReplace 函数里，就成功了。神奇之术。难道是因为变量的作用域问题吗？
+
+---------------------------------------------------
+
+@abccccabc  #72 用 let 别用 var 声明 i ，不然传进去的 url 是一模一样的。
+
+---------------------------------------------------
+
+@abccccabc 2024 年了，请多用 let 和 const ，可以避免很多问题。
+
+---------------------------------------------------
+
+@abccccabc 
+我重新确认了下，你问题里的代码没问题啊，也不用提取到循环外的函数里，除非在 post 回调函数里使用了 var i 变量，把关键的问题代码隐藏了。
+```
+var allimg = ["https://www.baidu.com/s/1.jpg", "https://www.baidu.com/s/2.jpg", "https://www.baidu.com/s/3.jpg", "https://www.baidu.com/s/4.jpg"];
+var oldcontent = "<img src='https://www.baidu.com/s/1.jpg'><img src='https://www.baidu.com/s/2.jpg'><img src='https://www.baidu.com/s/3.jpg'><img src='https://www.baidu.com/s/4.jpg'>";
+for (var i = 0; i < allimg.length; i++) {
+  post(allimg[i], function(ret) {
+    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    console.log(oldcontent);
+  });
+}
+function post(url, callback) {
+  const time = Math.floor(Math.random() * 100 + 100);
+  setTimeout(() => callback({"oldimgurl": url, "newimgurl": url + "new"}), time);
+}
+```
+输出: 
+```
+<img src='https://www.baidu.com/s/1.jpgnew'><img src='https://www.baidu.com/s/2.jpgnew'><img src='https://www.baidu.com/s/3.jpgnew'><img src='https://www.baidu.com/s/4.jpgnew'>
+```
+https://runjs.co/s/IUEhsmWc2
+
+---------------------------------------------------
+
+@Plumbiu ecmascript 只是把任务交给浏览器去执行, 但是未必固定了任务是有序的, 和浏览器的实现有关, 虽然 w3c 固定了任务序列. 但是实际上执行上是有差异的. 例如 edge 的节能模式下 setTimeout 执行上就存在问题
+
+---------------------------------------------------
+
+@qrobot 我也有点不确定啊，感觉如果是两个请求在队列里，前面不知道会不会存在队头阻塞的情况，应该是你说的对，post 接口返回的时间不一样，可能执行顺序不同
+
+---------------------------------------------------
+
+看起来是 replace 的问题？
+
+1. 对比每次 repalce 前后的 oldcontent
+2. 查看回调的 ret 值
+
+---------------------------------------------------
+
+@Plumbiu  不说 XMLHttpRequest 这点时间不同执行顺序不同, 都不用考虑, 但是异步任务中 js 的异步队列中并不是按照 按照顺序执行的. 据我所知的在 edge 和 chome 上都有不同的差异, 在 firefox 上也有差异, 你不能信任 ecmascript 的异步队列.
+
+---------------------------------------------------
+
+@Plumbiu 以前我验证过 setTimeout 在部分情况下会直接被优化, 包括 setInterval 优化的策略根据浏览器的版本也有所区别. 和 w3c 规定不太一样
+
+---------------------------------------------------
+
+首先这段代码会把所有同步部先执行一遍，所有的 $.post 都会第一时间执行，然后根据 $.post 请求的返回时间依次调用 callback 也就是说尽管 oldcontent 会经历多次修改，最终结果还是由最后返回的 $.post 请求结果决定
+
+---------------------------------------------------
+
+没眼看
+
+---------------------------------------------------
+
+你问题里的代码没有问题啊, oldContent 最终都会被正确替换呀。
+有问题的是 for 循环的 var i ，但是你代码里也没有使用，除非你隐藏了和索引 i 相关的代码。
+```
+var str = "Hello ";
+for (var i = 0; i < 5; i++) {
+    wait().then(() => {
+        str = str + "i";
+        console.log("index: ", i, "str: ", str);
+    });
+}
+async function wait() {
+    return new Promise((resolve) => {
+        const time = Math.floor(Math.random() * 100 + 100);
+        setTimeout(resolve, time);
+    });
+}
+```
+这段代码和你的基本一样，输出是这样的:
+```
+index:  5 str:  Hello i
+index:  5 str:  Hello ii
+index:  5 str:  Hello iii
+index:  5 str:  Hello iiii
+index:  5 str:  Hello iiiii
+```
+也就是说 var i 类似全局变量
+
+如果把 var i 换成 let i ，输出是这样的:
+```
+index:  1 str:  Hello i
+index:  4 str:  Hello ii
+index:  2 str:  Hello iii
+index:  0 str:  Hello iiii
+index:  3 str:  Hello iiiii
+```
+每次 post 完成后的回调都能正确获得自己的索引。
+
+---------------------------------------------------
+
+@abccccabc 空白太久的问题，不如通过 promise.all full resolved 之前给全页面加个 loading 来解决
+
+---------------------------------------------------
+
+和锁没关系, JS 是单线程的, 代码中的 oldcontent 在所有请求完成后也一定是对的 ( 当然你没有用 replaceAll, 在有重复 url 时会有问题 )
+
+你的问题不是 oldcontent 没生效, 而是 oldcontent 在异步变更后你的 html 没有同步更新才对
+
+解决的办法
+ - 用现成框架, vue / mobx 的响应式, oldcontent 变更后自动重新渲染到 html
+ - 每次请求完成后, 主动更新一次 oldcontent 到 html
+
+---------------------------------------------------
+
+这是 JS 最大特点，异步调用不会阻塞同步代码运行，等异步调用完成后代码运行切换到 callback 上，这是你的 oldcontent 被赋值，由于异步调用不可预测性，你无法知道哪次调用是最后结束的，也是说你的 oldcontent 最后结果是随机的。
+解决方案：
+1. 使用 promise 或 async/await 。
+2. callback 方式可使用 async 库, https://github.com/caolan/async
+
+---------------------------------------------------
+
+遗漏，
+3. 利用闭包
+
+---------------------------------------------------
+
+我的天呐，高手们这么热情。
+
+写了两遍实现。太浪费时间了。
+
+@ming159   39L 这个太简单了，早点看到这个就好了。一直在想着因为异步导致的问题，结果把大家都带偏了。
+
+已经实现了，谢谢各位
+
+---------------------------------------------------
+
+有个问题我觉得挺奇怪的，为啥有些高手盯着变量 i 呢？
+我原有代码(doReplace 函数里的代码写在 for 循环内)和 39L 的基本一模一样。他只是提取$.post 到 doReplace 函数里，就成功了。神奇之术。难道是因为变量的作用域问题吗？
+
+---------------------------------------------------
+
+@abccccabc  #72 用 let 别用 var 声明 i ，不然传进去的 url 是一模一样的。
+
+---------------------------------------------------
+
+@abccccabc 2024 年了，请多用 let 和 const ，可以避免很多问题。
+
+---------------------------------------------------
+
+@abccccabc 
+我重新确认了下，你问题里的代码没问题啊，也不用提取到循环外的函数里，除非在 post 回调函数里使用了 var i 变量，把关键的问题代码隐藏了。
+```
+var allimg = ["https://www.baidu.com/s/1.jpg", "https://www.baidu.com/s/2.jpg", "https://www.baidu.com/s/3.jpg", "https://www.baidu.com/s/4.jpg"];
+var oldcontent = "<img src='https://www.baidu.com/s/1.jpg'><img src='https://www.baidu.com/s/2.jpg'><img src='https://www.baidu.com/s/3.jpg'><img src='https://www.baidu.com/s/4.jpg'>";
+for (var i = 0; i < allimg.length; i++) {
+  post(allimg[i], function(ret) {
+    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    console.log(oldcontent);
+  });
+}
+function post(url, callback) {
+  const time = Math.floor(Math.random() * 100 + 100);
+  setTimeout(() => callback({"oldimgurl": url, "newimgurl": url + "new"}), time);
+}
+```
+输出: 
+```
+<img src='https://www.baidu.com/s/1.jpgnew'><img src='https://www.baidu.com/s/2.jpgnew'><img src='https://www.baidu.com/s/3.jpgnew'><img src='https://www.baidu.com/s/4.jpgnew'>
+```
+https://runjs.co/s/IUEhsmWc2
+
+---------------------------------------------------
+
+@Plumbiu ecmascript 只是把任务交给浏览器去执行, 但是未必固定了任务是有序的, 和浏览器的实现有关, 虽然 w3c 固定了任务序列. 但是实际上执行上是有差异的. 例如 edge 的节能模式下 setTimeout 执行上就存在问题
+
+---------------------------------------------------
+
+@qrobot 我也有点不确定啊，感觉如果是两个请求在队列里，前面不知道会不会存在队头阻塞的情况，应该是你说的对，post 接口返回的时间不一样，可能执行顺序不同
+
+---------------------------------------------------
+
+看起来是 replace 的问题？
+
+1. 对比每次 repalce 前后的 oldcontent
+2. 查看回调的 ret 值
+
+---------------------------------------------------
+
+@Plumbiu  不说 XMLHttpRequest 这点时间不同执行顺序不同, 都不用考虑, 但是异步任务中 js 的异步队列中并不是按照 按照顺序执行的. 据我所知的在 edge 和 chome 上都有不同的差异, 在 firefox 上也有差异, 你不能信任 ecmascript 的异步队列.
+
+---------------------------------------------------
+
+@Plumbiu 以前我验证过 setTimeout 在部分情况下会直接被优化, 包括 setInterval 优化的策略根据浏览器的版本也有所区别. 和 w3c 规定不太一样
+
+---------------------------------------------------
+
+首先这段代码会把所有同步部先执行一遍，所有的 $.post 都会第一时间执行，然后根据 $.post 请求的返回时间依次调用 callback 也就是说尽管 oldcontent 会经历多次修改，最终结果还是由最后返回的 $.post 请求结果决定
+
+---------------------------------------------------
+
+没眼看
+
+---------------------------------------------------
+
+你问题里的代码没有问题啊, oldContent 最终都会被正确替换呀。
+有问题的是 for 循环的 var i ，但是你代码里也没有使用，除非你隐藏了和索引 i 相关的代码。
+```
+var str = "Hello ";
+for (var i = 0; i < 5; i++) {
+    wait().then(() => {
+        str = str + "i";
+        console.log("index: ", i, "str: ", str);
+    });
+}
+async function wait() {
+    return new Promise((resolve) => {
+        const time = Math.floor(Math.random() * 100 + 100);
+        setTimeout(resolve, time);
+    });
+}
+```
+这段代码和你的基本一样，输出是这样的:
+```
+index:  5 str:  Hello i
+index:  5 str:  Hello ii
+index:  5 str:  Hello iii
+index:  5 str:  Hello iiii
+index:  5 str:  Hello iiiii
+```
+也就是说 var i 类似全局变量
+
+如果把 var i 换成 let i ，输出是这样的:
+```
+index:  1 str:  Hello i
+index:  4 str:  Hello ii
+index:  2 str:  Hello iii
+index:  0 str:  Hello iiii
+index:  3 str:  Hello iiiii
+```
+每次 post 完成后的回调都能正确获得自己的索引。
+
+---------------------------------------------------
+
+@abccccabc 空白太久的问题，不如通过 promise.all full resolved 之前给全页面加个 loading 来解决
+
+---------------------------------------------------
+
+和锁没关系, JS 是单线程的, 代码中的 oldcontent 在所有请求完成后也一定是对的 ( 当然你没有用 replaceAll, 在有重复 url 时会有问题 )
+
+你的问题不是 oldcontent 没生效, 而是 oldcontent 在异步变更后你的 html 没有同步更新才对
+
+解决的办法
+ - 用现成框架, vue / mobx 的响应式, oldcontent 变更后自动重新渲染到 html
+ - 每次请求完成后, 主动更新一次 oldcontent 到 html
+
+---------------------------------------------------
+
+这是 JS 最大特点，异步调用不会阻塞同步代码运行，等异步调用完成后代码运行切换到 callback 上，这是你的 oldcontent 被赋值，由于异步调用不可预测性，你无法知道哪次调用是最后结束的，也是说你的 oldcontent 最后结果是随机的。
+解决方案：
+1. 使用 promise 或 async/await 。
+2. callback 方式可使用 async 库, https://github.com/caolan/async
+
+---------------------------------------------------
+
+遗漏，
+3. 利用闭包
+
+---------------------------------------------------
+
+我的天呐，高手们这么热情。
+
+写了两遍实现。太浪费时间了。
+
+@ming159   39L 这个太简单了，早点看到这个就好了。一直在想着因为异步导致的问题，结果把大家都带偏了。
+
+已经实现了，谢谢各位
+
+---------------------------------------------------
+
+有个问题我觉得挺奇怪的，为啥有些高手盯着变量 i 呢？
+我原有代码(doReplace 函数里的代码写在 for 循环内)和 39L 的基本一模一样。他只是提取$.post 到 doReplace 函数里，就成功了。神奇之术。难道是因为变量的作用域问题吗？
+
+---------------------------------------------------
+
+@abccccabc  #72 用 let 别用 var 声明 i ，不然传进去的 url 是一模一样的。
+
+---------------------------------------------------
+
+@abccccabc 2024 年了，请多用 let 和 const ，可以避免很多问题。
+
+---------------------------------------------------
+
+@abccccabc 
+我重新确认了下，你问题里的代码没问题啊，也不用提取到循环外的函数里，除非在 post 回调函数里使用了 var i 变量，把关键的问题代码隐藏了。
+```
+var allimg = ["https://www.baidu.com/s/1.jpg", "https://www.baidu.com/s/2.jpg", "https://www.baidu.com/s/3.jpg", "https://www.baidu.com/s/4.jpg"];
+var oldcontent = "<img src='https://www.baidu.com/s/1.jpg'><img src='https://www.baidu.com/s/2.jpg'><img src='https://www.baidu.com/s/3.jpg'><img src='https://www.baidu.com/s/4.jpg'>";
+for (var i = 0; i < allimg.length; i++) {
+  post(allimg[i], function(ret) {
+    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    console.log(oldcontent);
+  });
+}
+function post(url, callback) {
+  const time = Math.floor(Math.random() * 100 + 100);
+  setTimeout(() => callback({"oldimgurl": url, "newimgurl": url + "new"}), time);
+}
+```
+输出: 
+```
+<img src='https://www.baidu.com/s/1.jpgnew'><img src='https://www.baidu.com/s/2.jpgnew'><img src='https://www.baidu.com/s/3.jpgnew'><img src='https://www.baidu.com/s/4.jpgnew'>
+```
+https://runjs.co/s/IUEhsmWc2
+
+---------------------------------------------------
+
+@Plumbiu ecmascript 只是把任务交给浏览器去执行, 但是未必固定了任务是有序的, 和浏览器的实现有关, 虽然 w3c 固定了任务序列. 但是实际上执行上是有差异的. 例如 edge 的节能模式下 setTimeout 执行上就存在问题
+
+---------------------------------------------------
+
+@qrobot 我也有点不确定啊，感觉如果是两个请求在队列里，前面不知道会不会存在队头阻塞的情况，应该是你说的对，post 接口返回的时间不一样，可能执行顺序不同
+
+---------------------------------------------------
+
+看起来是 replace 的问题？
+
+1. 对比每次 repalce 前后的 oldcontent
+2. 查看回调的 ret 值
+
+---------------------------------------------------
+
+@Plumbiu  不说 XMLHttpRequest 这点时间不同执行顺序不同, 都不用考虑, 但是异步任务中 js 的异步队列中并不是按照 按照顺序执行的. 据我所知的在 edge 和 chome 上都有不同的差异, 在 firefox 上也有差异, 你不能信任 ecmascript 的异步队列.
+
+---------------------------------------------------
+
+@Plumbiu 以前我验证过 setTimeout 在部分情况下会直接被优化, 包括 setInterval 优化的策略根据浏览器的版本也有所区别. 和 w3c 规定不太一样
+
+---------------------------------------------------
+
+首先这段代码会把所有同步部先执行一遍，所有的 $.post 都会第一时间执行，然后根据 $.post 请求的返回时间依次调用 callback 也就是说尽管 oldcontent 会经历多次修改，最终结果还是由最后返回的 $.post 请求结果决定
+
+---------------------------------------------------
+
+没眼看
+
+---------------------------------------------------
+
+你问题里的代码没有问题啊, oldContent 最终都会被正确替换呀。
+有问题的是 for 循环的 var i ，但是你代码里也没有使用，除非你隐藏了和索引 i 相关的代码。
+```
+var str = "Hello ";
+for (var i = 0; i < 5; i++) {
+    wait().then(() => {
+        str = str + "i";
+        console.log("index: ", i, "str: ", str);
+    });
+}
+async function wait() {
+    return new Promise((resolve) => {
+        const time = Math.floor(Math.random() * 100 + 100);
+        setTimeout(resolve, time);
+    });
+}
+```
+这段代码和你的基本一样，输出是这样的:
+```
+index:  5 str:  Hello i
+index:  5 str:  Hello ii
+index:  5 str:  Hello iii
+index:  5 str:  Hello iiii
+index:  5 str:  Hello iiiii
+```
+也就是说 var i 类似全局变量
+
+如果把 var i 换成 let i ，输出是这样的:
+```
+index:  1 str:  Hello i
+index:  4 str:  Hello ii
+index:  2 str:  Hello iii
+index:  0 str:  Hello iiii
+index:  3 str:  Hello iiiii
+```
+每次 post 完成后的回调都能正确获得自己的索引。
+
+---------------------------------------------------
+
+@abccccabc 空白太久的问题，不如通过 promise.all full resolved 之前给全页面加个 loading 来解决
+
+---------------------------------------------------
+
+和锁没关系, JS 是单线程的, 代码中的 oldcontent 在所有请求完成后也一定是对的 ( 当然你没有用 replaceAll, 在有重复 url 时会有问题 )
+
+你的问题不是 oldcontent 没生效, 而是 oldcontent 在异步变更后你的 html 没有同步更新才对
+
+解决的办法
+ - 用现成框架, vue / mobx 的响应式, oldcontent 变更后自动重新渲染到 html
+ - 每次请求完成后, 主动更新一次 oldcontent 到 html
+
+---------------------------------------------------
+
+这是 JS 最大特点，异步调用不会阻塞同步代码运行，等异步调用完成后代码运行切换到 callback 上，这是你的 oldcontent 被赋值，由于异步调用不可预测性，你无法知道哪次调用是最后结束的，也是说你的 oldcontent 最后结果是随机的。
+解决方案：
+1. 使用 promise 或 async/await 。
+2. callback 方式可使用 async 库, https://github.com/caolan/async
+
+---------------------------------------------------
+
+遗漏，
+3. 利用闭包
+
+---------------------------------------------------
+
+我的天呐，高手们这么热情。
+
+写了两遍实现。太浪费时间了。
+
+@ming159   39L 这个太简单了，早点看到这个就好了。一直在想着因为异步导致的问题，结果把大家都带偏了。
+
+已经实现了，谢谢各位
+
+---------------------------------------------------
+
+有个问题我觉得挺奇怪的，为啥有些高手盯着变量 i 呢？
+我原有代码(doReplace 函数里的代码写在 for 循环内)和 39L 的基本一模一样。他只是提取$.post 到 doReplace 函数里，就成功了。神奇之术。难道是因为变量的作用域问题吗？
+
+---------------------------------------------------
+
+@abccccabc  #72 用 let 别用 var 声明 i ，不然传进去的 url 是一模一样的。
+
+---------------------------------------------------
+
+@abccccabc 2024 年了，请多用 let 和 const ，可以避免很多问题。
+
+---------------------------------------------------
+
+@abccccabc 
+我重新确认了下，你问题里的代码没问题啊，也不用提取到循环外的函数里，除非在 post 回调函数里使用了 var i 变量，把关键的问题代码隐藏了。
+```
+var allimg = ["https://www.baidu.com/s/1.jpg", "https://www.baidu.com/s/2.jpg", "https://www.baidu.com/s/3.jpg", "https://www.baidu.com/s/4.jpg"];
+var oldcontent = "<img src='https://www.baidu.com/s/1.jpg'><img src='https://www.baidu.com/s/2.jpg'><img src='https://www.baidu.com/s/3.jpg'><img src='https://www.baidu.com/s/4.jpg'>";
+for (var i = 0; i < allimg.length; i++) {
+  post(allimg[i], function(ret) {
+    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    console.log(oldcontent);
+  });
+}
+function post(url, callback) {
+  const time = Math.floor(Math.random() * 100 + 100);
+  setTimeout(() => callback({"oldimgurl": url, "newimgurl": url + "new"}), time);
+}
+```
+输出: 
+```
+<img src='https://www.baidu.com/s/1.jpgnew'><img src='https://www.baidu.com/s/2.jpgnew'><img src='https://www.baidu.com/s/3.jpgnew'><img src='https://www.baidu.com/s/4.jpgnew'>
+```
+https://runjs.co/s/IUEhsmWc2
+
+---------------------------------------------------
+
+@Plumbiu ecmascript 只是把任务交给浏览器去执行, 但是未必固定了任务是有序的, 和浏览器的实现有关, 虽然 w3c 固定了任务序列. 但是实际上执行上是有差异的. 例如 edge 的节能模式下 setTimeout 执行上就存在问题
+
+---------------------------------------------------
+
+@qrobot 我也有点不确定啊，感觉如果是两个请求在队列里，前面不知道会不会存在队头阻塞的情况，应该是你说的对，post 接口返回的时间不一样，可能执行顺序不同
+
+---------------------------------------------------
+
+看起来是 replace 的问题？
+
+1. 对比每次 repalce 前后的 oldcontent
+2. 查看回调的 ret 值
+
+---------------------------------------------------
+
+@Plumbiu  不说 XMLHttpRequest 这点时间不同执行顺序不同, 都不用考虑, 但是异步任务中 js 的异步队列中并不是按照 按照顺序执行的. 据我所知的在 edge 和 chome 上都有不同的差异, 在 firefox 上也有差异, 你不能信任 ecmascript 的异步队列.
+
+---------------------------------------------------
+
+@Plumbiu 以前我验证过 setTimeout 在部分情况下会直接被优化, 包括 setInterval 优化的策略根据浏览器的版本也有所区别. 和 w3c 规定不太一样
+
+---------------------------------------------------
+
+首先这段代码会把所有同步部先执行一遍，所有的 $.post 都会第一时间执行，然后根据 $.post 请求的返回时间依次调用 callback 也就是说尽管 oldcontent 会经历多次修改，最终结果还是由最后返回的 $.post 请求结果决定
+
+---------------------------------------------------
+
+没眼看
+
+---------------------------------------------------
+
+你问题里的代码没有问题啊, oldContent 最终都会被正确替换呀。
+有问题的是 for 循环的 var i ，但是你代码里也没有使用，除非你隐藏了和索引 i 相关的代码。
+```
+var str = "Hello ";
+for (var i = 0; i < 5; i++) {
+    wait().then(() => {
+        str = str + "i";
+        console.log("index: ", i, "str: ", str);
+    });
+}
+async function wait() {
+    return new Promise((resolve) => {
+        const time = Math.floor(Math.random() * 100 + 100);
+        setTimeout(resolve, time);
+    });
+}
+```
+这段代码和你的基本一样，输出是这样的:
+```
+index:  5 str:  Hello i
+index:  5 str:  Hello ii
+index:  5 str:  Hello iii
+index:  5 str:  Hello iiii
+index:  5 str:  Hello iiiii
+```
+也就是说 var i 类似全局变量
+
+如果把 var i 换成 let i ，输出是这样的:
+```
+index:  1 str:  Hello i
+index:  4 str:  Hello ii
+index:  2 str:  Hello iii
+index:  0 str:  Hello iiii
+index:  3 str:  Hello iiiii
+```
+每次 post 完成后的回调都能正确获得自己的索引。
+
+---------------------------------------------------
+
+@abccccabc 空白太久的问题，不如通过 promise.all full resolved 之前给全页面加个 loading 来解决
+
+---------------------------------------------------
+
+和锁没关系, JS 是单线程的, 代码中的 oldcontent 在所有请求完成后也一定是对的 ( 当然你没有用 replaceAll, 在有重复 url 时会有问题 )
+
+你的问题不是 oldcontent 没生效, 而是 oldcontent 在异步变更后你的 html 没有同步更新才对
+
+解决的办法
+ - 用现成框架, vue / mobx 的响应式, oldcontent 变更后自动重新渲染到 html
+ - 每次请求完成后, 主动更新一次 oldcontent 到 html
+
+---------------------------------------------------
+
+这是 JS 最大特点，异步调用不会阻塞同步代码运行，等异步调用完成后代码运行切换到 callback 上，这是你的 oldcontent 被赋值，由于异步调用不可预测性，你无法知道哪次调用是最后结束的，也是说你的 oldcontent 最后结果是随机的。
+解决方案：
+1. 使用 promise 或 async/await 。
+2. callback 方式可使用 async 库, https://github.com/caolan/async
+
+---------------------------------------------------
+
+遗漏，
+3. 利用闭包
+
+---------------------------------------------------
+
+我的天呐，高手们这么热情。
+
+写了两遍实现。太浪费时间了。
+
+@ming159   39L 这个太简单了，早点看到这个就好了。一直在想着因为异步导致的问题，结果把大家都带偏了。
+
+已经实现了，谢谢各位
+
+---------------------------------------------------
+
+有个问题我觉得挺奇怪的，为啥有些高手盯着变量 i 呢？
+我原有代码(doReplace 函数里的代码写在 for 循环内)和 39L 的基本一模一样。他只是提取$.post 到 doReplace 函数里，就成功了。神奇之术。难道是因为变量的作用域问题吗？
+
+---------------------------------------------------
+
+@abccccabc  #72 用 let 别用 var 声明 i ，不然传进去的 url 是一模一样的。
+
+---------------------------------------------------
+
+@abccccabc 2024 年了，请多用 let 和 const ，可以避免很多问题。
+
+---------------------------------------------------
+
+@abccccabc 
+我重新确认了下，你问题里的代码没问题啊，也不用提取到循环外的函数里，除非在 post 回调函数里使用了 var i 变量，把关键的问题代码隐藏了。
+```
+var allimg = ["https://www.baidu.com/s/1.jpg", "https://www.baidu.com/s/2.jpg", "https://www.baidu.com/s/3.jpg", "https://www.baidu.com/s/4.jpg"];
+var oldcontent = "<img src='https://www.baidu.com/s/1.jpg'><img src='https://www.baidu.com/s/2.jpg'><img src='https://www.baidu.com/s/3.jpg'><img src='https://www.baidu.com/s/4.jpg'>";
+for (var i = 0; i < allimg.length; i++) {
+  post(allimg[i], function(ret) {
+    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    console.log(oldcontent);
+  });
+}
+function post(url, callback) {
+  const time = Math.floor(Math.random() * 100 + 100);
+  setTimeout(() => callback({"oldimgurl": url, "newimgurl": url + "new"}), time);
+}
+```
+输出: 
+```
+<img src='https://www.baidu.com/s/1.jpgnew'><img src='https://www.baidu.com/s/2.jpgnew'><img src='https://www.baidu.com/s/3.jpgnew'><img src='https://www.baidu.com/s/4.jpgnew'>
+```
+https://runjs.co/s/IUEhsmWc2
+
+---------------------------------------------------
+
+@Plumbiu ecmascript 只是把任务交给浏览器去执行, 但是未必固定了任务是有序的, 和浏览器的实现有关, 虽然 w3c 固定了任务序列. 但是实际上执行上是有差异的. 例如 edge 的节能模式下 setTimeout 执行上就存在问题
+
+---------------------------------------------------
+
+@qrobot 我也有点不确定啊，感觉如果是两个请求在队列里，前面不知道会不会存在队头阻塞的情况，应该是你说的对，post 接口返回的时间不一样，可能执行顺序不同
+
+---------------------------------------------------
+
+看起来是 replace 的问题？
+
+1. 对比每次 repalce 前后的 oldcontent
+2. 查看回调的 ret 值
+
+---------------------------------------------------
+
+@Plumbiu  不说 XMLHttpRequest 这点时间不同执行顺序不同, 都不用考虑, 但是异步任务中 js 的异步队列中并不是按照 按照顺序执行的. 据我所知的在 edge 和 chome 上都有不同的差异, 在 firefox 上也有差异, 你不能信任 ecmascript 的异步队列.
+
+---------------------------------------------------
+
+@Plumbiu 以前我验证过 setTimeout 在部分情况下会直接被优化, 包括 setInterval 优化的策略根据浏览器的版本也有所区别. 和 w3c 规定不太一样
+
+---------------------------------------------------
+
+首先这段代码会把所有同步部先执行一遍，所有的 $.post 都会第一时间执行，然后根据 $.post 请求的返回时间依次调用 callback 也就是说尽管 oldcontent 会经历多次修改，最终结果还是由最后返回的 $.post 请求结果决定
+
+---------------------------------------------------
+
+没眼看
+
+---------------------------------------------------
+
+你问题里的代码没有问题啊, oldContent 最终都会被正确替换呀。
+有问题的是 for 循环的 var i ，但是你代码里也没有使用，除非你隐藏了和索引 i 相关的代码。
+```
+var str = "Hello ";
+for (var i = 0; i < 5; i++) {
+    wait().then(() => {
+        str = str + "i";
+        console.log("index: ", i, "str: ", str);
+    });
+}
+async function wait() {
+    return new Promise((resolve) => {
+        const time = Math.floor(Math.random() * 100 + 100);
+        setTimeout(resolve, time);
+    });
+}
+```
+这段代码和你的基本一样，输出是这样的:
+```
+index:  5 str:  Hello i
+index:  5 str:  Hello ii
+index:  5 str:  Hello iii
+index:  5 str:  Hello iiii
+index:  5 str:  Hello iiiii
+```
+也就是说 var i 类似全局变量
+
+如果把 var i 换成 let i ，输出是这样的:
+```
+index:  1 str:  Hello i
+index:  4 str:  Hello ii
+index:  2 str:  Hello iii
+index:  0 str:  Hello iiii
+index:  3 str:  Hello iiiii
+```
+每次 post 完成后的回调都能正确获得自己的索引。
+
+---------------------------------------------------
+
+@abccccabc 空白太久的问题，不如通过 promise.all full resolved 之前给全页面加个 loading 来解决
+
+---------------------------------------------------
+
+和锁没关系, JS 是单线程的, 代码中的 oldcontent 在所有请求完成后也一定是对的 ( 当然你没有用 replaceAll, 在有重复 url 时会有问题 )
+
+你的问题不是 oldcontent 没生效, 而是 oldcontent 在异步变更后你的 html 没有同步更新才对
+
+解决的办法
+ - 用现成框架, vue / mobx 的响应式, oldcontent 变更后自动重新渲染到 html
+ - 每次请求完成后, 主动更新一次 oldcontent 到 html
+
+---------------------------------------------------
+
+这是 JS 最大特点，异步调用不会阻塞同步代码运行，等异步调用完成后代码运行切换到 callback 上，这是你的 oldcontent 被赋值，由于异步调用不可预测性，你无法知道哪次调用是最后结束的，也是说你的 oldcontent 最后结果是随机的。
+解决方案：
+1. 使用 promise 或 async/await 。
+2. callback 方式可使用 async 库, https://github.com/caolan/async
+
+---------------------------------------------------
+
+遗漏，
+3. 利用闭包
+
+---------------------------------------------------
+
+我的天呐，高手们这么热情。
+
+写了两遍实现。太浪费时间了。
+
+@ming159   39L 这个太简单了，早点看到这个就好了。一直在想着因为异步导致的问题，结果把大家都带偏了。
+
+已经实现了，谢谢各位
+
+---------------------------------------------------
+
+有个问题我觉得挺奇怪的，为啥有些高手盯着变量 i 呢？
+我原有代码(doReplace 函数里的代码写在 for 循环内)和 39L 的基本一模一样。他只是提取$.post 到 doReplace 函数里，就成功了。神奇之术。难道是因为变量的作用域问题吗？
+
+---------------------------------------------------
+
+@abccccabc  #72 用 let 别用 var 声明 i ，不然传进去的 url 是一模一样的。
+
+---------------------------------------------------
+
+@abccccabc 2024 年了，请多用 let 和 const ，可以避免很多问题。
+
+---------------------------------------------------
+
+@abccccabc 
+我重新确认了下，你问题里的代码没问题啊，也不用提取到循环外的函数里，除非在 post 回调函数里使用了 var i 变量，把关键的问题代码隐藏了。
+```
+var allimg = ["https://www.baidu.com/s/1.jpg", "https://www.baidu.com/s/2.jpg", "https://www.baidu.com/s/3.jpg", "https://www.baidu.com/s/4.jpg"];
+var oldcontent = "<img src='https://www.baidu.com/s/1.jpg'><img src='https://www.baidu.com/s/2.jpg'><img src='https://www.baidu.com/s/3.jpg'><img src='https://www.baidu.com/s/4.jpg'>";
+for (var i = 0; i < allimg.length; i++) {
+  post(allimg[i], function(ret) {
+    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    console.log(oldcontent);
+  });
+}
+function post(url, callback) {
+  const time = Math.floor(Math.random() * 100 + 100);
+  setTimeout(() => callback({"oldimgurl": url, "newimgurl": url + "new"}), time);
+}
+```
+输出: 
+```
+<img src='https://www.baidu.com/s/1.jpgnew'><img src='https://www.baidu.com/s/2.jpgnew'><img src='https://www.baidu.com/s/3.jpgnew'><img src='https://www.baidu.com/s/4.jpgnew'>
+```
+https://runjs.co/s/IUEhsmWc2
+
+---------------------------------------------------
+
+@Plumbiu ecmascript 只是把任务交给浏览器去执行, 但是未必固定了任务是有序的, 和浏览器的实现有关, 虽然 w3c 固定了任务序列. 但是实际上执行上是有差异的. 例如 edge 的节能模式下 setTimeout 执行上就存在问题
+
+---------------------------------------------------
+
+@qrobot 我也有点不确定啊，感觉如果是两个请求在队列里，前面不知道会不会存在队头阻塞的情况，应该是你说的对，post 接口返回的时间不一样，可能执行顺序不同
+
+---------------------------------------------------
+
+看起来是 replace 的问题？
+
+1. 对比每次 repalce 前后的 oldcontent
+2. 查看回调的 ret 值
+
+---------------------------------------------------
+
+@Plumbiu  不说 XMLHttpRequest 这点时间不同执行顺序不同, 都不用考虑, 但是异步任务中 js 的异步队列中并不是按照 按照顺序执行的. 据我所知的在 edge 和 chome 上都有不同的差异, 在 firefox 上也有差异, 你不能信任 ecmascript 的异步队列.
+
+---------------------------------------------------
+
+@Plumbiu 以前我验证过 setTimeout 在部分情况下会直接被优化, 包括 setInterval 优化的策略根据浏览器的版本也有所区别. 和 w3c 规定不太一样
+
+---------------------------------------------------
+
+首先这段代码会把所有同步部先执行一遍，所有的 $.post 都会第一时间执行，然后根据 $.post 请求的返回时间依次调用 callback 也就是说尽管 oldcontent 会经历多次修改，最终结果还是由最后返回的 $.post 请求结果决定
+
+---------------------------------------------------
+
+没眼看
+
+---------------------------------------------------
+
+你问题里的代码没有问题啊, oldContent 最终都会被正确替换呀。
+有问题的是 for 循环的 var i ，但是你代码里也没有使用，除非你隐藏了和索引 i 相关的代码。
+```
+var str = "Hello ";
+for (var i = 0; i < 5; i++) {
+    wait().then(() => {
+        str = str + "i";
+        console.log("index: ", i, "str: ", str);
+    });
+}
+async function wait() {
+    return new Promise((resolve) => {
+        const time = Math.floor(Math.random() * 100 + 100);
+        setTimeout(resolve, time);
+    });
+}
+```
+这段代码和你的基本一样，输出是这样的:
+```
+index:  5 str:  Hello i
+index:  5 str:  Hello ii
+index:  5 str:  Hello iii
+index:  5 str:  Hello iiii
+index:  5 str:  Hello iiiii
+```
+也就是说 var i 类似全局变量
+
+如果把 var i 换成 let i ，输出是这样的:
+```
+index:  1 str:  Hello i
+index:  4 str:  Hello ii
+index:  2 str:  Hello iii
+index:  0 str:  Hello iiii
+index:  3 str:  Hello iiiii
+```
+每次 post 完成后的回调都能正确获得自己的索引。
+
+---------------------------------------------------
+
+@abccccabc 空白太久的问题，不如通过 promise.all full resolved 之前给全页面加个 loading 来解决
+
+---------------------------------------------------
+
+和锁没关系, JS 是单线程的, 代码中的 oldcontent 在所有请求完成后也一定是对的 ( 当然你没有用 replaceAll, 在有重复 url 时会有问题 )
+
+你的问题不是 oldcontent 没生效, 而是 oldcontent 在异步变更后你的 html 没有同步更新才对
+
+解决的办法
+ - 用现成框架, vue / mobx 的响应式, oldcontent 变更后自动重新渲染到 html
+ - 每次请求完成后, 主动更新一次 oldcontent 到 html
+
+---------------------------------------------------
+
+这是 JS 最大特点，异步调用不会阻塞同步代码运行，等异步调用完成后代码运行切换到 callback 上，这是你的 oldcontent 被赋值，由于异步调用不可预测性，你无法知道哪次调用是最后结束的，也是说你的 oldcontent 最后结果是随机的。
+解决方案：
+1. 使用 promise 或 async/await 。
+2. callback 方式可使用 async 库, https://github.com/caolan/async
+
+---------------------------------------------------
+
+遗漏，
+3. 利用闭包
+
+---------------------------------------------------
+
+我的天呐，高手们这么热情。
+
+写了两遍实现。太浪费时间了。
+
+@ming159   39L 这个太简单了，早点看到这个就好了。一直在想着因为异步导致的问题，结果把大家都带偏了。
+
+已经实现了，谢谢各位
+
+---------------------------------------------------
+
+有个问题我觉得挺奇怪的，为啥有些高手盯着变量 i 呢？
+我原有代码(doReplace 函数里的代码写在 for 循环内)和 39L 的基本一模一样。他只是提取$.post 到 doReplace 函数里，就成功了。神奇之术。难道是因为变量的作用域问题吗？
+
+---------------------------------------------------
+
+@abccccabc  #72 用 let 别用 var 声明 i ，不然传进去的 url 是一模一样的。
+
+---------------------------------------------------
+
+@abccccabc 2024 年了，请多用 let 和 const ，可以避免很多问题。
+
+---------------------------------------------------
+
+@abccccabc 
+我重新确认了下，你问题里的代码没问题啊，也不用提取到循环外的函数里，除非在 post 回调函数里使用了 var i 变量，把关键的问题代码隐藏了。
+```
+var allimg = ["https://www.baidu.com/s/1.jpg", "https://www.baidu.com/s/2.jpg", "https://www.baidu.com/s/3.jpg", "https://www.baidu.com/s/4.jpg"];
+var oldcontent = "<img src='https://www.baidu.com/s/1.jpg'><img src='https://www.baidu.com/s/2.jpg'><img src='https://www.baidu.com/s/3.jpg'><img src='https://www.baidu.com/s/4.jpg'>";
+for (var i = 0; i < allimg.length; i++) {
+  post(allimg[i], function(ret) {
+    oldcontent = oldcontent.replace(ret['oldimgurl'], ret['newimgurl']);
+    console.log(oldcontent);
+  });
+}
+function post(url, callback) {
+  const time = Math.floor(Math.random() * 100 + 100);
+  setTimeout(() => callback({"oldimgurl": url, "newimgurl": url + "new"}), time);
+}
+```
+输出: 
+```
+<img src='https://www.baidu.com/s/1.jpgnew'><img src='https://www.baidu.com/s/2.jpgnew'><img src='https://www.baidu.com/s/3.jpgnew'><img src='https://www.baidu.com/s/4.jpgnew'>
+```
+https://runjs.co/s/IUEhsmWc2
+
